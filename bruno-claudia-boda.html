@@ -42,6 +42,8 @@
             --route-pale: #A9AD8C;
             --navy:       #33465A;
             --navy-pale:  #7C93A5;
+            --gold:       #C9A227;
+            --gold-soft:  #E7CE7F;
             --font-display: 'Fraunces', Georgia, serif;
             --font-body:    'Work Sans', 'Segoe UI', sans-serif;
             --font-mono:    'Space Mono', monospace;
@@ -100,32 +102,46 @@
         /* =================== SOBRE AEREO =================== */
         #envelope-gate {
             position: fixed; inset: 0; z-index: 999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
-            background: var(--navy);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px;
+            background: radial-gradient(ellipse at center, #3a3128 0%, #211c16 70%);
+            overflow: hidden;
             transition: opacity 0.7s ease, visibility 0.7s ease;
         }
         #envelope-gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .envelope-wrap { perspective: 1400px; }
-        .envelope { position: relative; width: clamp(250px, 62vw, 380px); aspect-ratio: 3/2; cursor: pointer; }
 
-        .airmail-border {
-            position: absolute; inset: 0;
-            background: repeating-linear-gradient(-45deg, var(--postmark) 0 10px, var(--white) 10px 15px, var(--navy) 15px 25px, var(--white) 25px 30px);
-            z-index: 0;
+        .gate-glow {
+            position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,162,39,0.22) 0%, rgba(107,112,80,0.12) 45%, transparent 72%);
+            filter: blur(10px);
+            animation: glowDrift 10s ease-in-out infinite alternate;
         }
-        .envelope-inner { position: absolute; inset: 9px; background: var(--paper); overflow: hidden; z-index: 1; }
+        @keyframes glowDrift { from { transform: translate(-4%, -3%) scale(1); } to { transform: translate(4%, 3%) scale(1.08); } }
+
+        .envelope-wrap { perspective: 1400px; position: relative; z-index: 1; }
+        .envelope {
+            position: relative; width: clamp(250px, 60vw, 360px); aspect-ratio: 3/2; cursor: pointer;
+            animation: envelopeBreathe 4.5s ease-in-out infinite;
+        }
+        .envelope-wrap.open .envelope { animation: none; }
+        @keyframes envelopeBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.015); } }
+
+        .envelope-inner {
+            position: absolute; inset: 0; background: var(--paper); overflow: hidden; z-index: 1;
+            border-radius: 3px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(231,206,127,0.35), 0 0 40px rgba(201,162,39,0.12);
+        }
 
         .envelope .paper-peek {
             position: absolute; left: 8%; right: 8%; top: -10%; height: 88%;
             background: var(--white);
-            box-shadow: 0 10px 28px rgba(20,17,10,0.35);
+            box-shadow: 0 10px 28px rgba(20,17,10,0.3);
             display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px;
             transition: transform 0.9s cubic-bezier(.34,1.2,.4,1);
             z-index: 1;
         }
         .envelope-wrap.open .paper-peek { transform: translateY(-44%); }
-        .paper-peek p:first-child { font-family: var(--font-hand); font-size: 1.5rem; color: var(--postmark-deep); }
-        .paper-peek p:last-child { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); margin-top: 6px; }
+        .paper-peek p:first-child { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.5rem; color: var(--ink); }
+        .paper-peek p:last-child { font-family: var(--font-body); font-weight: 500; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
 
         .envelope .body-shape { position: absolute; inset: 0; z-index: 2; overflow: hidden; }
         .envelope .body-shape::before, .envelope .body-shape::after {
@@ -141,39 +157,29 @@
             transform-origin: top center;
             transition: transform 0.9s cubic-bezier(.4,0,.2,1);
             z-index: 3;
+            box-shadow: inset 0 -1px 0 rgba(201,162,39,0.25);
         }
         .envelope-wrap.open .envelope .flap { transform: rotateX(180deg); }
 
-        .stamp {
-            position: absolute; top: 14px; right: 14px; width: 56px; height: 68px;
-            background: var(--white); border: 2px dashed var(--ink-soft);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-            z-index: 4; transform: rotate(3deg);
-            transition: opacity 0.4s ease;
-        }
-        .stamp svg { width: 22px; height: 22px; stroke: var(--postmark); fill: none; stroke-width: 1.6; }
-        .stamp span { font-family: var(--font-mono); font-size: 0.45rem; letter-spacing: 1px; color: var(--ink-soft); }
-
-        .postmark-badge {
-            position: absolute; top: 30px; right: 30px; width: 62px; height: 62px; border-radius: 50%;
-            border: 1.5px dashed var(--ink-soft);
+        .seal {
+            position: absolute; left: 50%; top: 56%; transform: translate(-50%,-50%);
+            width: 64px; height: 64px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #96791c 100%);
             display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-mono); font-size: 0.5rem; color: var(--ink-soft); text-align: center;
-            transform: rotate(-14deg);
-            z-index: 5;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35), inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -3px 5px rgba(0,0,0,0.25);
+            z-index: 4;
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .envelope-wrap.open .stamp, .envelope-wrap.open .postmark-badge { opacity: 0; }
+        .seal svg { width: 40px; height: 40px; }
+        .seal svg path { fill: none; stroke: #3a2e0c; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: sealDraw 1.6s ease 0.6s forwards; }
+        @keyframes sealDraw { to { stroke-dashoffset: 0; } }
+        .envelope-wrap.open .seal { opacity: 0; transform: translate(-50%,-50%) scale(0.6); }
 
-        .envelope-address { position: absolute; left: 16%; bottom: 18%; z-index: 2; text-align: left; }
-        .envelope-address p { font-family: var(--font-mono); font-size: 0.62rem; color: var(--ink-soft); letter-spacing: 0.5px; }
-        .envelope-address .to { font-family: var(--font-hand); font-size: 1.3rem; color: var(--ink); margin-top: 2px; }
-
-        .envelope-hint { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--paper); opacity: 0.7; transition: opacity 0.4s ease; }
+        .envelope-hint { font-family: var(--font-hand); font-size: 1.35rem; color: var(--gold-soft); opacity: 0.85; transition: opacity 0.4s ease; }
         .envelope-wrap.open ~ .envelope-hint { opacity: 0; }
 
         @media (prefers-reduced-motion: reduce) {
-            .envelope .flap, .paper-peek, .stamp, .postmark-badge, #envelope-gate { transition: none !important; }
+            .envelope .flap, .paper-peek, .seal, #envelope-gate, .envelope, .gate-glow { animation: none !important; transition: none !important; }
         }
 
         /* =================== PORTADA / CUADERNO ============= */
@@ -441,31 +447,25 @@
     <!-- ============= SOBRE AEREO DE ENTRADA ============= -->
     <!-- [SOBRE] texto de dentro del sobre -->
     <div id="envelope-gate">
+        <div class="gate-glow" aria-hidden="true"></div>
         <div class="envelope-wrap" id="envelopeWrap">
             <div class="envelope">
-                <div class="airmail-border"></div>
                 <div class="envelope-inner">
                     <div class="paper-peek">
                         <div>
                             <p>Estáis invitados</p>
-                            <p>BRUNO &amp; CLAUDIA · 20.06.2027</p>
+                            <p>Bruno &amp; Claudia · 20.06.2027</p>
                         </div>
                     </div>
                     <div class="body-shape"></div>
-                    <div class="envelope-address">
-                        <p>PARA:</p>
-                        <p class="to">Vosotros</p>
-                    </div>
                     <div class="flap"></div>
-                    <div class="stamp">
-                        <svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><circle cx="16" cy="15" r="4"/><path d="M9.5 12.5 12 5l2.5 7.5"/></svg>
-                        <span>CANTABRIA</span>
+                    <div class="seal">
+                        <svg viewBox="0 0 40 40"><path d="M9,28 C9,14 16,9 20,9 C24,9 31,14 31,28"/></svg>
                     </div>
-                    <div class="postmark-badge">20 JUN<br>2027</div>
                 </div>
             </div>
         </div>
-        <p class="envelope-hint">toca el sobre para abrirlo</p>
+        <p class="envelope-hint">toca para abrir vuestra invitación</p>
     </div>
 
     <!-- ============= BARRA DE VUELO (progreso de scroll) ============= -->
