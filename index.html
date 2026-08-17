@@ -154,10 +154,10 @@
             display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px;
             transition: transform 1.3s cubic-bezier(.22,1,.36,1) 1.5s, opacity 0.8s ease 1.5s;
             opacity: 0.001;
-            z-index: 1;
+            z-index: 0;
         }
-        .envelope-wrap.rising .paper-peek { z-index: 6; }
-        .envelope-wrap.open .paper-peek { transform: translateY(-58%) scale(1.06); opacity: 1; }
+        .envelope-wrap.rising .paper-peek { z-index: 10; }
+        .envelope-wrap.open .paper-peek { transform: translateY(-22%) scale(1.1); opacity: 1; }
         .paper-peek > div { background: rgba(255,255,255,0.88); padding: 12px 18px; border-radius: 2px; }
         .paper-peek p:first-child { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.5rem; color: var(--ink); }
         .paper-peek p:last-child { font-family: var(--font-body); font-weight: 500; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--denim-deep); margin-top: 8px; }
@@ -517,12 +517,6 @@
         <div class="envelope-wrap" id="envelopeWrap">
             <div class="envelope">
                 <div class="envelope-inner">
-                    <div class="paper-peek">
-                        <div>
-                            <p>Estáis invitados</p>
-                            <p>Bruno &amp; Claudia · 20.06.2027</p>
-                        </div>
-                    </div>
                     <div class="body-shape"></div>
                     <div class="env-face">
                         <svg class="leaf-sprig" viewBox="0 0 60 90">
@@ -553,6 +547,12 @@
                             <path class="bow-shape" d="M25,18 C25,18 45,3 48,10 C51,18 36,21 25,18 Z"/>
                             <circle class="bow-knot" cx="25" cy="18" r="4.5"/>
                         </svg>
+                    </div>
+                </div>
+                <div class="paper-peek">
+                    <div>
+                        <p>Estáis invitados</p>
+                        <p>Bruno &amp; Claudia · 20.06.2027</p>
                     </div>
                 </div>
             </div>
