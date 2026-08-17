@@ -44,6 +44,11 @@
             --navy-pale:  #7C93A5;
             --gold:       #C9A227;
             --gold-soft:  #E7CE7F;
+            --kraft:      #C7A874;
+            --kraft-deep: #A9875A;
+            --kraft-dark: #8C6E42;
+            --twine:      #9C7F51;
+            --leaf:       #4B6B3E;
             --font-display: 'Fraunces', Georgia, serif;
             --font-body:    'Work Sans', 'Segoe UI', sans-serif;
             --font-mono:    'Space Mono', monospace;
@@ -126,9 +131,11 @@
         @keyframes envelopeBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.015); } }
 
         .envelope-inner {
-            position: absolute; inset: 0; background: var(--paper); overflow: hidden; z-index: 1;
-            border-radius: 3px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(231,206,127,0.35), 0 0 40px rgba(201,162,39,0.12);
+            position: absolute; inset: 0; overflow: hidden; z-index: 1;
+            border-radius: 2px;
+            background-color: var(--kraft);
+            background-image: repeating-linear-gradient(115deg, rgba(140,110,66,0.10) 0 2px, transparent 2px 5px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.25);
         }
 
         .envelope .paper-peek {
@@ -145,41 +152,63 @@
 
         .envelope .body-shape { position: absolute; inset: 0; z-index: 2; overflow: hidden; }
         .envelope .body-shape::before, .envelope .body-shape::after {
-            content: ''; position: absolute; bottom: 0; width: 52%; height: 100%; background: var(--paper-deep);
+            content: ''; position: absolute; bottom: 0; width: 52%; height: 100%; background: var(--kraft-deep);
+            opacity: 0.5;
         }
         .envelope .body-shape::before { left: 0; clip-path: polygon(0 0, 100% 100%, 0 100%); }
         .envelope .body-shape::after  { right: 0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
 
+        .env-face {
+            position: absolute; inset: 0; z-index: 2;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            padding-bottom: 9%; text-align: center;
+            transition: opacity 0.4s ease;
+        }
+        .envelope-wrap.open .env-face { opacity: 0; }
+        .ef-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(0.85rem,3vw,1.05rem); letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink); line-height: 1.15; }
+        .ef-amp-row { display: flex; align-items: center; gap: 7px; margin: 0; }
+        .ef-amp { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: clamp(1.7rem,5.5vw,2.3rem); color: var(--gold); line-height: 1; }
+        .mini-heart { width: 9px; height: 9px; }
+        .mini-heart path { fill: var(--postmark); }
+        .ef-date { font-family: var(--font-body); font-weight: 500; font-size: 0.6rem; letter-spacing: 2px; color: var(--kraft-dark); margin-top: 8px; }
+        .leaf-sprig { position: absolute; bottom: 8%; left: 7%; width: 15%; height: auto; opacity: 0.9; transform: rotate(-6deg); }
+        .leaf-sprig path { stroke: var(--leaf); }
+        .leaf-sprig ellipse { fill: var(--leaf); }
+
         .envelope .flap {
             position: absolute; top: 0; left: 0; width: 100%; height: 56%;
-            background: var(--paper);
+            background-color: var(--kraft);
+            background-image: repeating-linear-gradient(115deg, rgba(140,110,66,0.10) 0 2px, transparent 2px 5px);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
             transition: transform 0.9s cubic-bezier(.4,0,.2,1);
             z-index: 3;
-            box-shadow: inset 0 -1px 0 rgba(201,162,39,0.25);
+            box-shadow: inset 0 -1px 0 rgba(140,110,66,0.4);
         }
         .envelope-wrap.open .envelope .flap { transform: rotateX(180deg); }
 
-        .seal {
-            position: absolute; left: 50%; top: 56%; transform: translate(-50%,-50%);
-            width: 64px; height: 64px; border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #96791c 100%);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.35), inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -3px 5px rgba(0,0,0,0.25);
+        .twine-bow {
+            position: absolute; left: 50%; top: 55%; width: 74%; height: 30px;
+            transform: translate(-50%,-50%) rotate(-2deg);
             z-index: 4;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        .seal svg { width: 40px; height: 40px; }
-        .seal svg path { fill: none; stroke: #3a2e0c; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: sealDraw 1.6s ease 0.6s forwards; }
-        @keyframes sealDraw { to { stroke-dashoffset: 0; } }
-        .envelope-wrap.open .seal { opacity: 0; transform: translate(-50%,-50%) scale(0.6); }
+        .twine-bow .strap {
+            position: absolute; left: -10%; right: -10%; top: 50%; height: 6px; transform: translateY(-50%);
+            background-image: repeating-linear-gradient(115deg, var(--twine) 0 3px, var(--kraft-dark) 3px 6px);
+            border-radius: 3px; box-shadow: 0 2px 3px rgba(0,0,0,0.25);
+        }
+        .twine-bow svg { position: absolute; left: 50%; top: 50%; width: 50px; height: 36px; transform: translate(-50%,-50%); }
+        .twine-bow .bow-shape { fill: var(--twine); }
+        .twine-bow .bow-knot { fill: var(--kraft-dark); }
+        .twine-bow .bow-tail { stroke: var(--twine); stroke-width: 3; stroke-linecap: round; }
+        .envelope-wrap.open .twine-bow { opacity: 0; transform: translate(-50%,-50%) rotate(22deg) translateX(40px); }
 
         .envelope-hint { font-family: var(--font-hand); font-size: 1.35rem; color: var(--gold-soft); opacity: 0.85; transition: opacity 0.4s ease; }
         .envelope-wrap.open ~ .envelope-hint { opacity: 0; }
 
         @media (prefers-reduced-motion: reduce) {
-            .envelope .flap, .paper-peek, .seal, #envelope-gate, .envelope, .gate-glow { animation: none !important; transition: none !important; }
+            .envelope .flap, .paper-peek, .twine-bow, .env-face, #envelope-gate, .envelope, .gate-glow { animation: none !important; transition: none !important; }
         }
 
         /* =================== PORTADA / CUADERNO ============= */
@@ -458,14 +487,40 @@
                         </div>
                     </div>
                     <div class="body-shape"></div>
+                    <div class="env-face">
+                        <svg class="leaf-sprig" viewBox="0 0 60 90">
+                            <path d="M30,85 C30,60 30,30 32,5" fill="none" stroke-width="2" stroke-linecap="round"/>
+                            <ellipse cx="24" cy="20" rx="9" ry="4" transform="rotate(-35 24 20)"/>
+                            <ellipse cx="38" cy="30" rx="9" ry="4" transform="rotate(35 38 30)"/>
+                            <ellipse cx="22" cy="42" rx="9" ry="4" transform="rotate(-35 22 42)"/>
+                            <ellipse cx="36" cy="52" rx="9" ry="4" transform="rotate(35 36 52)"/>
+                            <ellipse cx="24" cy="64" rx="8" ry="3.5" transform="rotate(-30 24 64)"/>
+                        </svg>
+                        <p class="ef-name">Bruno</p>
+                        <div class="ef-amp-row">
+                            <svg class="mini-heart" viewBox="0 0 24 24"><path d="M12,21 C12,21 3,14.5 3,8.5 C3,5 5.5,3 8.5,3 C10.5,3 12,4.5 12,4.5 C12,4.5 13.5,3 15.5,3 C18.5,3 21,5 21,8.5 C21,14.5 12,21 12,21 Z"/></svg>
+                            <span class="ef-amp">&amp;</span>
+                            <svg class="mini-heart" viewBox="0 0 24 24"><path d="M12,21 C12,21 3,14.5 3,8.5 C3,5 5.5,3 8.5,3 C10.5,3 12,4.5 12,4.5 C12,4.5 13.5,3 15.5,3 C18.5,3 21,5 21,8.5 C21,14.5 12,21 12,21 Z"/></svg>
+                        </div>
+                        <p class="ef-name">Claudia</p>
+                        <!-- [FECHA] -->
+                        <p class="ef-date">20 · AGOSTO · 2027</p>
+                    </div>
                     <div class="flap"></div>
-                    <div class="seal">
-                        <svg viewBox="0 0 40 40"><path d="M9,28 C9,14 16,9 20,9 C24,9 31,14 31,28"/></svg>
+                    <div class="twine-bow">
+                        <div class="strap"></div>
+                        <svg viewBox="0 0 50 36">
+                            <path class="bow-tail" d="M25,18 L18,30" fill="none"/>
+                            <path class="bow-tail" d="M25,18 L32,30" fill="none"/>
+                            <path class="bow-shape" d="M25,18 C25,18 5,3 2,10 C-1,18 14,21 25,18 Z"/>
+                            <path class="bow-shape" d="M25,18 C25,18 45,3 48,10 C51,18 36,21 25,18 Z"/>
+                            <circle class="bow-knot" cx="25" cy="18" r="4.5"/>
+                        </svg>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="envelope-hint">toca para abrir vuestra invitación</p>
+        <p class="envelope-hint">tira del lazo para abrir vuestra invitación</p>
     </div>
 
     <!-- ============= BARRA DE VUELO (progreso de scroll) ============= -->
