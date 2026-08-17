@@ -844,32 +844,61 @@
             fireworkBurst(cx + r.width * 0.32, cy - r.height * 0.15, 420);
         }
 
-        function playMagicChime() {
+        function playRocketSound(ctx, atTime) {
+            // silbido de subida
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(280, atTime);
+            osc.frequency.exponentialRampToValueAtTime(1300, atTime + 0.22);
+            g.gain.setValueAtTime(0.0001, atTime);
+            g.gain.linearRampToValueAtTime(0.09, atTime + 0.04);
+            g.gain.exponentialRampToValueAtTime(0.0001, atTime + 0.25);
+            osc.connect(g); g.connect(ctx.destination);
+            osc.start(atTime); osc.stop(atTime + 0.26);
+
+            // explosion (ruido filtrado)
+            const dur = 0.5;
+            const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 1.6);
+            const noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'lowpass'; filter.frequency.value = 900;
+            const ng = ctx.createGain();
+            ng.gain.setValueAtTime(0.22, atTime + 0.22);
+            noise.connect(filter); filter.connect(ng); ng.connect(ctx.destination);
+            noise.start(atTime + 0.22); noise.stop(atTime + 0.22 + dur);
+
+            // chisporroteo
+            for (let k = 0; k < 5; k++) {
+                const t = atTime + 0.3 + Math.random() * 0.35;
+                const co = ctx.createOscillator();
+                const cg = ctx.createGain();
+                co.type = 'square';
+                co.frequency.value = 1600 + Math.random() * 2200;
+                cg.gain.setValueAtTime(0.035, t);
+                cg.gain.exponentialRampToValueAtTime(0.0005, t + 0.05);
+                co.connect(cg); cg.connect(ctx.destination);
+                co.start(t); co.stop(t + 0.06);
+            }
+        }
+
+        function playFireworksAudio() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
                 const now = ctx.currentTime;
-                const notes = [784, 987.77, 1174.66, 1567.98];
-                notes.forEach((freq, i) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    const start = now + i * 0.14;
-                    gain.gain.setValueAtTime(0, start);
-                    gain.gain.linearRampToValueAtTime(0.12, start + 0.03);
-                    gain.gain.exponentialRampToValueAtTime(0.0008, start + 0.9);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(start);
-                    osc.stop(start + 1);
-                });
+                playRocketSound(ctx, now + 0.30);
+                playRocketSound(ctx, now + 0.52);
+                playRocketSound(ctx, now + 0.72);
             } catch (e) { /* audio no disponible, seguimos sin sonido */ }
         }
 
         envelopeWrap.addEventListener('click', () => {
             if (envelopeWrap.classList.contains('open')) return;
             envelopeWrap.classList.add('open');
-            playMagicChime();
+            playFireworksAudio();
             setTimeout(() => spawnSparkles(envelopeWrap), 300);
             setTimeout(() => {
                 gate.classList.add('hidden');
