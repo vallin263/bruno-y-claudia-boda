@@ -2,3 +2,8 @@
 *.jpg
 *.png
 *.py
+
+# Fotos reales de la galeria de la web SI se suben al repo
+!assets/images/galeria/*.jpg
+!assets/images/galeria/*.jpeg
+!assets/images/galeria/*.webp
