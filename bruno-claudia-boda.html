@@ -20,25 +20,25 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Cormorant Garamond + Manrope: tipografía del nuevo diseño. Fraunces y Caveat se mantienen cargadas únicamente para no alterar el sobre. -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&family=Fraunces:ital,wght@0,500;1,500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+    <!-- Source Serif 4 + Inter: tipografía de "Editorial del Norte". Fraunces y Caveat se mantienen cargadas únicamente para no alterar el sobre. -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@0,500;1,500&family=Caveat:wght@500&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --ivory:      #F4F0E8;
-            --ivory-deep: #ECE3D2;
-            --charcoal:   #252521;
-            --charcoal-soft: #5C564A;
-            --forest:     #31463A;
+            /* Paleta "Editorial del Norte" — aprobada */
+            --ivory:      #F3F1EA;
+            --ivory-deep: #EAE5D8;
+            --charcoal:   #24231F;
+            --charcoal-soft: #5C574C;
+            --forest:     #1F3A34;
             --forest-pale:#7C9186;
-            --terracotta: #A8624A;
-            --terracotta-pale: #D9A996;
-            --gold:       #B49A68;
-            --gold-pale:  #E4D6B0;
-            --line:       #DCD0B8;
+            --terracotta: #C17A54;
+            --terracotta-pale: #DDB093;
+            --stone:      #8A8A82;
+            --line:       #DAD4C3;
             --white:      #FFFFFF;
-            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-            --font-body:    'Manrope', 'Segoe UI', sans-serif;
+            --font-display: 'Source Serif 4', Georgia, serif;
+            --font-body:    'Inter', 'Segoe UI', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -118,7 +118,7 @@
         @media (prefers-reduced-motion: reduce) { .hero-photo img { animation: none; } }
         .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,17,14,0.72) 0%, rgba(20,17,14,0.18) 45%, rgba(20,17,14,0.05) 70%); }
         .hero-content { position: relative; z-index: 1; color: var(--white); width: 100%; padding: 0 24px clamp(56px, 9vw, 100px); text-align: center; }
-        .hero-content .eyebrow { color: var(--gold-pale); justify-content: center; }
+        .hero-content .eyebrow { color: var(--terracotta-pale); justify-content: center; }
         .hero-content h1 { color: var(--white); }
         .hero-note { font-family: var(--font-display); font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: rgba(255,255,255,0.88); margin: 18px auto 30px; max-width: 46ch; }
         .hero-content .btn-solid { background: var(--terracotta); }
@@ -129,10 +129,10 @@
         .countdown-grid { display: flex; justify-content: center; align-items: baseline; gap: clamp(20px, 5vw, 54px); margin-top: 8px; }
         .c-days { }
         .c-days span { font-family: var(--font-display); font-weight: 500; font-size: clamp(4rem, 14vw, 7.5rem); line-height: 0.9; color: var(--forest); display: block; font-variant-numeric: tabular-nums; transition: opacity 0.35s ease; }
-        .c-days small { font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; color: var(--charcoal-soft); }
+        .c-days small { font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; color: var(--stone); }
         .c-rest { display: flex; gap: 22px; }
         .c-rest .c-item span { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--charcoal); display: block; font-variant-numeric: tabular-nums; transition: opacity 0.35s ease; }
-        .c-rest .c-item small { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal-soft); }
+        .c-rest .c-item small { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--stone); }
         .num-pulse { opacity: 0.45; }
 
         /* =================== HISTORIA =================== */
@@ -183,7 +183,7 @@
         .route-stop:last-child { padding-bottom: 0; }
         .route-dot { position: absolute; left: -30px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--terracotta); }
         .route-time { font-family: var(--font-display); font-style: italic; font-size: 1.5rem; color: var(--forest); }
-        .route-label { font-weight: 600; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal-soft); margin-bottom: 2px; }
+        .route-label { font-weight: 600; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--stone); margin-bottom: 2px; }
         .route-place { color: var(--charcoal-soft); margin-top: 3px; font-size: 0.95rem; }
 
         /* =================== LUGAR Y TRANSPORTE =================== */
@@ -192,22 +192,9 @@
         .venue-address { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: var(--charcoal-soft); margin: 8px 0 24px; }
         .venue-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-        .transport { margin-top: 56px; max-width: 620px; margin-left: auto; margin-right: auto; }
+        .transport { margin-top: 56px; max-width: 560px; margin-left: auto; margin-right: auto; text-align: center; }
         .transport > .eyebrow { text-align: center; justify-content: center; }
-        .transport-route { border-top: 1px solid var(--line); }
-        .transport-route:last-child { border-bottom: 1px solid var(--line); }
-        .transport-route summary {
-            cursor: pointer; list-style: none; padding: 18px 4px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-family: var(--font-display); font-size: 1.15rem; color: var(--charcoal);
-        }
-        .transport-route summary::-webkit-details-marker { display: none; }
-        .transport-route summary::after { content: '+'; font-size: 1.3rem; color: var(--terracotta); transition: transform 0.3s ease; }
-        .transport-route[open] summary::after { content: '–'; }
-        .transport-route .t-body { padding: 0 4px 20px; color: var(--charcoal-soft); }
-        .transport-route .t-body ul { list-style: none; }
-        .transport-route .t-body li { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.94rem; }
-        .transport-note { text-align: center; font-size: 0.82rem; color: var(--charcoal-soft); margin-top: 18px; font-style: italic; }
+        .transport-pending { color: var(--charcoal-soft); font-size: 0.98rem; border-top: 1px solid var(--line); padding-top: 22px; }
 
         /* =================== CONFIRMACION =================== */
         .rsvp-section { background: var(--ivory-deep); }
@@ -238,7 +225,6 @@
         .rsvp-form.is-done .success-block { display: block; }
         .success-block h3 { margin-bottom: 6px; }
         .success-block p { margin: 0 auto; color: var(--charcoal-soft); }
-        .success-meta { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 
         /* =================== CIERRE =================== */
         .closing { position: relative; padding: 0; min-height: 78vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -246,7 +232,7 @@
         .closing-photo img { width: 100%; height: 100%; object-fit: cover; }
         .closing-photo::after { content: ''; position: absolute; inset: 0; background: rgba(20,17,14,0.5); }
         .closing-content { position: relative; z-index: 1; text-align: center; color: var(--white); padding: 40px 24px; }
-        .closing-content .eyebrow { color: var(--gold-pale); justify-content: center; }
+        .closing-content .eyebrow { color: var(--terracotta-pale); justify-content: center; }
         .closing-names { font-family: var(--font-display); font-style: italic; font-size: clamp(2.2rem, 6vw, 3.4rem); color: var(--white); }
         .closing-date { margin: 10px 0 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.78rem; color: rgba(255,255,255,0.85); }
 
@@ -619,28 +605,9 @@
             </div>
 
             <div class="transport">
-                <p class="eyebrow">Autobuses</p>
-                <!-- [BUS] rutas, paradas y horarios reales -->
-                <details class="transport-route">
-                    <summary>Línea 1<span></span></summary>
-                    <div class="t-body">
-                        <ul>
-                            <li><span><!-- [LUGAR] --> Punto de salida A</span><span>16:30h</span></li>
-                            <li><span><!-- [LUGAR] --> Punto de salida B</span><span>16:45h</span></li>
-                            <li><span><!-- [LUGAR] --> Punto de salida C</span><span>17:15h</span></li>
-                        </ul>
-                    </div>
-                </details>
-                <details class="transport-route">
-                    <summary>Línea 2<span></span></summary>
-                    <div class="t-body">
-                        <ul>
-                            <li><span><!-- [LUGAR] --> Punto de salida D</span><span>16:30h</span></li>
-                            <li><span><!-- [LUGAR] --> Punto de salida E</span><span>16:50h</span></li>
-                        </ul>
-                    </div>
-                </details>
-                <p class="transport-note">Horarios provisionales · regreso único a las 04:00h</p>
+                <p class="eyebrow">Cómo desplazarte</p>
+                <!-- [BUS] Sustituir por las paradas y horarios reales en cuanto estén confirmados. -->
+                <p class="transport-pending">Estamos organizando un servicio de autobús para quienes lo necesitéis. En cuanto tengamos las paradas y los horarios confirmados, los publicaremos aquí — si mientras tanto tienes dudas, escríbenos directamente.</p>
             </div>
         </div>
     </section>
@@ -649,7 +616,7 @@
     <section id="confirmacion" class="rsvp-section reveal">
         <div class="wrap">
             <p class="eyebrow">Antes de nada</p>
-            <h2 class="display-lg">Confirma tu <em>plaza</em></h2>
+            <h2 class="display-lg">Confirma tu <em>asistencia</em></h2>
             <!-- [TEXTO] fecha límite real -->
             <p>Antes del <span data-cfg="rsvpDeadlineDisplay">1 de mayo de 2027</span>, cuéntanos si podrás acompañarnos.</p>
 
@@ -708,13 +675,12 @@
                     </div>
                 </div>
 
-                <button type="submit" id="submitBtn" class="btn btn-solid btn-submit">Confirmar mi plaza</button>
+                <button type="submit" id="submitBtn" class="btn btn-solid btn-submit">Confirmar asistencia</button>
                 <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
 
                 <div class="success-block">
-                    <h3 class="display-md"><em>Tu plaza está confirmada</em></h3>
-                    <p class="success-meta"><span data-cfg="successDestino">Destino: Cantabria</span> · <span data-cfg="successFecha">Fecha: 20.06.2027</span></p>
-                    <p>Ya formas parte de nuestra próxima aventura.</p>
+                    <h3 class="display-md"><em>Asistencia confirmada</em></h3>
+                    <p>Nos hace muchísima ilusión celebrarlo contigo.</p>
                 </div>
             </form>
         </div>
@@ -853,8 +819,6 @@
             heroDate: "Cantabria · 20 de junio de 2027",
             closingDate: "20 de junio de 2027 · Cantabria",
             rsvpDeadlineDisplay: "1 de mayo de 2027",
-            successDestino: "Destino: Cantabria",
-            successFecha: "Fecha: 20.06.2027",
             venueName: "Palacio de Mijares",
             venueAddress: "Mijares, Cantabria",
             venueDirectionsURL: "https://www.google.com/maps/dir/?api=1&destination=Restaurante+Palacio+Mijares",
@@ -964,12 +928,12 @@
             enviarASheet(new FormData(weddingForm))
                 .then(() => {
                     weddingForm.classList.add('is-done');
-                    b.innerText = 'Confirmar mi plaza';
+                    b.innerText = 'Confirmar asistencia';
                 })
                 .catch(() => {
                     formStatus.textContent = 'No se pudo enviar. Inténtalo de nuevo en un momento.';
                     formStatus.className = 'form-status error';
-                    b.disabled = false; b.innerText = 'Confirmar mi plaza';
+                    b.disabled = false; b.innerText = 'Confirmar asistencia';
                     formSubmitted = false;
                 });
         });
