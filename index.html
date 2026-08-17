@@ -44,11 +44,13 @@
             --navy-pale:  #7C93A5;
             --gold:       #C9A227;
             --gold-soft:  #E7CE7F;
-            --kraft:      #C7A874;
-            --kraft-deep: #A9875A;
-            --kraft-dark: #8C6E42;
-            --twine:      #9C7F51;
+            --kraft:      #CFA3AF;
+            --kraft-deep: #B37E8B;
+            --kraft-dark: #AC8D63;
+            --twine:      #B99E70;
             --leaf:       #4B6B3E;
+            --floral:     #8C4A56;
+            --floral-2:   #D9AEB8;
             --font-display: 'Fraunces', Georgia, serif;
             --font-body:    'Work Sans', 'Segoe UI', sans-serif;
             --font-mono:    'Space Mono', monospace;
@@ -134,8 +136,12 @@
             position: absolute; inset: 0; overflow: hidden; z-index: 1;
             border-radius: 2px;
             background-color: var(--kraft);
-            background-image: repeating-linear-gradient(115deg, rgba(140,110,66,0.10) 0 2px, transparent 2px 5px);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.25);
+            background-image:
+                url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2770%27%20height=%2770%27%3E%3Cg%3E%3Cg%20transform=%27translate(16,16)%27%3E%3Ccircle%20cx=%270%27%20cy=%27-7%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%276%27%20cy=%27-2%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%274%27%20cy=%276%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%27-4%27%20cy=%276%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%27-6%27%20cy=%27-2%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%270%27%20cy=%270%27%20r=%272.5%27%20fill=%27%23AC8D63%27/%3E%3C/g%3E%3Cg%20transform=%27translate(50,46)%27%3E%3Ccircle%20cx=%270%27%20cy=%27-6%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%275%27%20cy=%27-2%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%273%27%20cy=%275%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%27-3%27%20cy=%275%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%27-5%27%20cy=%27-2%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%270%27%20cy=%270%27%20r=%272%27%20fill=%27%23AC8D63%27/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                repeating-linear-gradient(115deg, rgba(140,110,66,0.08) 0 2px, transparent 2px 5px);
+            background-size: 74px 74px, auto;
+            background-repeat: repeat, repeat;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(179,126,139,0.3);
         }
 
         .envelope .paper-peek {
@@ -178,7 +184,11 @@
         .envelope .flap {
             position: absolute; top: 0; left: 0; width: 100%; height: 54%;
             background-color: var(--kraft);
-            background-image: repeating-linear-gradient(115deg, rgba(140,110,66,0.10) 0 2px, transparent 2px 5px);
+            background-image:
+                url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2770%27%20height=%2770%27%3E%3Cg%3E%3Cg%20transform=%27translate(16,16)%27%3E%3Ccircle%20cx=%270%27%20cy=%27-7%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%276%27%20cy=%27-2%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%274%27%20cy=%276%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%27-4%27%20cy=%276%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%27-6%27%20cy=%27-2%27%20r=%274%27%20fill=%27%238C4A56%27/%3E%3Ccircle%20cx=%270%27%20cy=%270%27%20r=%272.5%27%20fill=%27%23AC8D63%27/%3E%3C/g%3E%3Cg%20transform=%27translate(50,46)%27%3E%3Ccircle%20cx=%270%27%20cy=%27-6%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%275%27%20cy=%27-2%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%273%27%20cy=%275%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%27-3%27%20cy=%275%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%27-5%27%20cy=%27-2%27%20r=%273.2%27%20fill=%27%23D9AEB8%27/%3E%3Ccircle%20cx=%270%27%20cy=%270%27%20r=%272%27%20fill=%27%23AC8D63%27/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                repeating-linear-gradient(115deg, rgba(140,110,66,0.08) 0 2px, transparent 2px 5px);
+            background-size: 74px 74px, auto;
+            background-repeat: repeat, repeat;
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
             transition: transform 1s cubic-bezier(.4,0,.2,1) 1.5s;
