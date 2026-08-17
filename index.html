@@ -51,11 +51,10 @@
             --leaf:       #4B6B3E;
             --floral:     #8C4A56;
             --floral-2:   #D9AEB8;
-            --silk-1:     #F5DEE3;
-            --silk-2:     #E2AFBC;
-            --silk-3:     #C98A99;
-            --ribbon:     #CE93A6;
-            --ribbon-light: #F6D3DE;
+            --denim:      #7E96B8;
+            --denim-deep: #566E92;
+            --ribbon:     #E8C56B;
+            --ribbon-light: #F6E3B0;
             --font-display: 'Fraunces', Georgia, serif;
             --font-body:    'Work Sans', 'Segoe UI', sans-serif;
             --font-mono:    'Space Mono', monospace;
@@ -140,35 +139,30 @@
         .envelope-inner {
             position: absolute; inset: 0; overflow: hidden; z-index: 1;
             border-radius: 2px;
-            background: linear-gradient(135deg, var(--silk-1) 0%, var(--silk-2) 45%, var(--silk-3) 72%, var(--silk-1) 100%);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(201,162,39,0.55), 0 0 40px rgba(201,162,39,0.1);
+            background: var(--denim);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.15);
         }
-        .envelope-inner::after {
-            content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none;
-            background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,0.65) 46%, rgba(255,238,196,0.4) 53%, transparent 70%);
-            background-size: 260% 260%;
-            mix-blend-mode: soft-light;
-            animation: silkSheen 6s ease-in-out infinite;
-        }
-        @keyframes silkSheen { 0%,100% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } }
-        @media (prefers-reduced-motion: reduce) { .envelope-inner::after { animation: none; } }
 
         .envelope .paper-peek {
             position: absolute; left: 8%; right: 8%; top: -10%; height: 88%;
-            background: var(--white);
+            background-color: var(--white);
+            background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27110%27%20height=%27110%27%3E%3Crect%20width=%27110%27%20height=%27110%27%20fill=%27%23FFFFFF%27/%3E%3Cg%20transform=%27translate(25,30)%20rotate(-15)%27%3E%3Cellipse%20cx=%270%27%20cy=%270%27%20rx=%2716%27%20ry=%2712%27%20fill=%27%23F0C43A%27/%3E%3Cellipse%20cx=%27-16%27%20cy=%27-2%27%20rx=%277%27%20ry=%274%27%20fill=%27%237A9B5C%27%20transform=%27rotate(-20%20-16%20-2)%27/%3E%3C/g%3E%3Cg%20transform=%27translate(80,20)%20rotate(10)%27%3E%3Ccircle%20cx=%270%27%20cy=%270%27%20r=%2711%27%20fill=%27%23E8935A%27/%3E%3Cellipse%20cx=%2710%27%20cy=%27-6%27%20rx=%276%27%20ry=%273.5%27%20fill=%27%237A9B5C%27%20transform=%27rotate(20%2010%20-6)%27/%3E%3C/g%3E%3Cg%20transform=%27translate(18,82)%20rotate(8)%27%3E%3Ccircle%20cx=%270%27%20cy=%270%27%20r=%2710%27%20fill=%27%23E8935A%27/%3E%3Cellipse%20cx=%27-9%27%20cy=%27-5%27%20rx=%276%27%20ry=%273.5%27%20fill=%27%237A9B5C%27%20transform=%27rotate(-25%20-9%20-5)%27/%3E%3C/g%3E%3Cg%20transform=%27translate(84,84)%20rotate(-8)%27%3E%3Cellipse%20cx=%270%27%20cy=%270%27%20rx=%2715%27%20ry=%2711%27%20fill=%27%23F0C43A%27/%3E%3Cellipse%20cx=%2713%27%20cy=%27-3%27%20rx=%277%27%20ry=%274%27%20fill=%27%237A9B5C%27%20transform=%27rotate(20%2013%20-3)%27/%3E%3C/g%3E%3Cellipse%20cx=%2755%27%20cy=%2755%27%20rx=%276%27%20ry=%273%27%20fill=%27%238AAE6B%27%20transform=%27rotate(30%2055%2055)%27/%3E%3C/svg%3E");
+            background-size: 84px 84px;
+            background-repeat: repeat;
             box-shadow: 0 10px 28px rgba(20,17,10,0.3);
             display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px;
             transition: transform 1s cubic-bezier(.34,1.2,.4,1) 1.5s;
             z-index: 1;
         }
         .envelope-wrap.open .paper-peek { transform: translateY(-44%); }
+        .paper-peek > div { background: rgba(255,255,255,0.88); padding: 12px 18px; border-radius: 2px; }
         .paper-peek p:first-child { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.5rem; color: var(--ink); }
-        .paper-peek p:last-child { font-family: var(--font-body); font-weight: 500; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
+        .paper-peek p:last-child { font-family: var(--font-body); font-weight: 500; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--denim-deep); margin-top: 8px; }
 
         .envelope .body-shape { position: absolute; inset: 0; z-index: 2; overflow: hidden; }
         .envelope .body-shape::before, .envelope .body-shape::after {
-            content: ''; position: absolute; bottom: 0; width: 52%; height: 100%; background: var(--kraft-deep);
-            opacity: 0.5;
+            content: ''; position: absolute; bottom: 0; width: 52%; height: 100%; background: var(--denim-deep);
+            opacity: 0.45;
         }
         .envelope .body-shape::before { left: 0; clip-path: polygon(0 0, 100% 100%, 0 100%); }
         .envelope .body-shape::after  { right: 0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
@@ -180,33 +174,25 @@
             transition: opacity 0.4s ease;
         }
         .envelope-wrap.open .env-face { opacity: 0; }
-        .ef-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(0.85rem,3vw,1.05rem); letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink); line-height: 1.15; }
+        .ef-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(0.85rem,3vw,1.05rem); letter-spacing: 2.5px; text-transform: uppercase; color: var(--white); text-shadow: 0 1px 3px rgba(0,0,0,0.2); line-height: 1.15; }
         .ef-amp-row { display: flex; align-items: center; gap: 7px; margin: 0; }
         .ef-amp { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: clamp(1.7rem,5.5vw,2.3rem); color: var(--gold); line-height: 1; }
         .mini-heart { width: 9px; height: 9px; }
         .mini-heart path { fill: var(--gold); }
-        .ef-date { font-family: var(--font-body); font-weight: 500; font-size: 0.6rem; letter-spacing: 2px; color: var(--kraft-dark); margin-top: 8px; }
+        .ef-date { font-family: var(--font-body); font-weight: 500; font-size: 0.6rem; letter-spacing: 2px; color: var(--ribbon-light); margin-top: 8px; }
         .leaf-sprig { position: absolute; bottom: 8%; left: 7%; width: 17%; height: auto; opacity: 0.95; transform: rotate(-6deg); }
         .leaf-sprig path { stroke: var(--gold); fill: none; }
         .leaf-sprig ellipse { fill: none; stroke: var(--gold); stroke-width: 1.4; }
 
         .envelope .flap {
             position: absolute; top: 0; left: 0; width: 100%; height: 54%;
-            background: linear-gradient(135deg, var(--silk-1) 0%, var(--silk-2) 55%, var(--silk-3) 100%);
+            background: var(--denim);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
             transition: transform 1s cubic-bezier(.4,0,.2,1) 1.5s;
             z-index: 3;
-            box-shadow: inset 0 -1px 0 rgba(201,162,39,0.35);
+            box-shadow: inset 0 -1px 0 rgba(255,255,255,0.2);
         }
-        .envelope .flap::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.6) 48%, transparent 66%);
-            background-size: 240% 240%;
-            mix-blend-mode: soft-light;
-            animation: silkSheen 6s ease-in-out infinite;
-        }
-        @media (prefers-reduced-motion: reduce) { .envelope .flap::after { animation: none; } }
         .envelope-wrap.open .envelope .flap { transform: rotateX(180deg); }
 
         .twine-bow {
