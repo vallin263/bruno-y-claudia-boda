@@ -357,10 +357,13 @@
         .r-item p { font-family: var(--font-mono); font-weight: 700; color: var(--postmark-deep); font-size: 0.95rem; }
 
         /* =================== DESTINO (venue postal) ============= */
-        .venue-section { position: relative; text-align: left; color: var(--white); padding: clamp(80px,13vw,140px) 20px; background-size: cover; background-position: center; background-attachment: fixed; }
-        @media (max-width: 768px) { .venue-section { background-attachment: scroll; } }
+        .venue-section { position: relative; text-align: left; color: var(--white); padding: clamp(80px,13vw,140px) 20px; background-size: cover; background-position: center; }
         .venue-section::before { content:''; position:absolute; inset:0; background: rgba(24,20,15,0.55); }
-        .venue-card { position: relative; z-index: 1; max-width: 440px; margin: 0 auto; background: rgba(241,233,216,0.96); color: var(--ink); padding: 30px 30px 26px; border-left: 3px dashed var(--postmark); text-align: left; }
+        .venue-card { position: relative; z-index: 1; max-width: 440px; margin: 0 auto; background: rgba(241,233,216,0.94); color: var(--ink); padding: 30px 30px 26px; border-left: 3px dashed var(--postmark); text-align: left; }
+        @media (max-width: 480px) {
+            .venue-section { padding: 90px 16px; }
+            .venue-card { padding: 22px 20px 20px; }
+        }
         .venue-card .kicker { color: var(--postmark); }
         .venue-card .section-title { color: var(--ink); font-size: clamp(1.7rem,4vw,2.4rem); }
         .venue-coords { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-soft); margin: 8px 0 20px; }
