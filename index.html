@@ -249,7 +249,6 @@
         }
 
         /* =================== CEREMONIA =================== */
-        .ceremony-grid { display: grid; gap: 36px; align-items: center; }
         .ceremony-media {
             position: relative; display: block; background: var(--ivory-deep);
             border: 1px solid var(--line); padding: 12px;
@@ -270,7 +269,7 @@
         .ceremony-media-hint svg { width: 12px; height: 12px; stroke: #C9A227; fill: none; stroke-width: 1.8; }
         .ceremony-media:hover .ceremony-media-hint,
         .ceremony-media:focus-visible .ceremony-media-hint { opacity: 1; transform: translateY(-2px); }
-        .ceremony-info { text-align: center; }
+        .ceremony-info { margin-top: 30px; text-align: center; }
         .ceremony-time {
             display: inline-block; font-family: var(--font-display); font-style: italic;
             color: var(--forest); font-size: 1.35rem; margin: 4px 0 12px;
@@ -280,12 +279,6 @@
             color: var(--charcoal-soft); margin: 0 auto 26px; max-width: 38ch;
         }
         .ceremony-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-        @media (min-width: 780px) {
-            .ceremony-grid { grid-template-columns: 1.2fr 0.8fr; gap: 64px; }
-            .ceremony-info { text-align: left; }
-            .ceremony-address { margin-left: 0; margin-right: 0; }
-            .ceremony-actions { justify-content: flex-start; }
-        }
         @media (prefers-reduced-motion: reduce) {
             .ceremony-media, .ceremony-media-hint { transition: none; }
         }
@@ -817,23 +810,21 @@
 
     <!-- ============= CEREMONIA ============= -->
     <section class="ceremony-section reveal">
-        <div class="wrap-wide">
-            <div class="ceremony-grid">
-                <a class="ceremony-media" href="https://www.google.com/maps/dir/?api=1&amp;destination=P.%C2%BA%20de%20la%20Barquera%2C%2018%2C%2039540%20San%20Vicente%20de%20la%20Barquera%2C%20Cantabria" target="_blank" rel="noopener" aria-label="Abrir la ubicación del Santuario de La Barquera en Google Maps">
-                    <img src="assets/images/santuario-de-la-barquera.jpeg" width="1220" height="566" alt="Ilustración en acuarela del Santuario de La Barquera, una ermita de piedra con espadaña, buganvilla en flor y un ciprés junto a la entrada" loading="lazy" decoding="async">
-                    <span class="ceremony-media-hint" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
-                        Ver ubicación
-                    </span>
-                </a>
-                <div class="ceremony-info">
-                    <p class="eyebrow">La ceremonia</p>
-                    <h2 class="display-lg">Santuario de <em>La Barquera</em></h2>
-                    <p class="ceremony-time">12:30h</p>
-                    <p class="ceremony-address" data-cfg="ceremonyAddress">P.º de la Barquera, 18, 39540 San Vicente de la Barquera, Cantabria</p>
-                    <div class="ceremony-actions">
-                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=P.%C2%BA%20de%20la%20Barquera%2C%2018%2C%2039540%20San%20Vicente%20de%20la%20Barquera%2C%20Cantabria" target="_blank" rel="noopener" class="btn btn-solid">Cómo llegar</a>
-                    </div>
+        <div class="wrap">
+            <a class="ceremony-media" href="https://www.google.com/maps/dir/?api=1&amp;destination=P.%C2%BA%20de%20la%20Barquera%2C%2018%2C%2039540%20San%20Vicente%20de%20la%20Barquera%2C%20Cantabria" target="_blank" rel="noopener" aria-label="Abrir la ubicación del Santuario de La Barquera en Google Maps">
+                <img src="assets/images/santuario-de-la-barquera.jpeg" width="1220" height="566" alt="Ilustración en acuarela del Santuario de La Barquera, una ermita de piedra con espadaña, buganvilla en flor y un ciprés junto a la entrada" loading="lazy" decoding="async">
+                <span class="ceremony-media-hint" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+                    Ver ubicación
+                </span>
+            </a>
+            <div class="ceremony-info">
+                <p class="eyebrow center">La ceremonia</p>
+                <h2 class="display-lg center">Santuario de <em>La Barquera</em></h2>
+                <p class="ceremony-time">12:30h</p>
+                <p class="ceremony-address" data-cfg="ceremonyAddress">P.º de la Barquera, 18, 39540 San Vicente de la Barquera, Cantabria</p>
+                <div class="ceremony-actions">
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=P.%C2%BA%20de%20la%20Barquera%2C%2018%2C%2039540%20San%20Vicente%20de%20la%20Barquera%2C%20Cantabria" target="_blank" rel="noopener" class="btn btn-solid">Cómo llegar</a>
                 </div>
             </div>
         </div>
