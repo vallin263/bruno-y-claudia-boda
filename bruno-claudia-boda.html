@@ -1323,12 +1323,11 @@
             fParadaHoraEl.value = fParadaEl.selectedOptions[0]?.dataset.time || '';
         });
 
-        // ============= [SCRIPT] Conexión con Google Sheets =============
-        // Crea una Google Sheet -> Extensiones -> Apps Script -> recoge e.parameter.*
-        // y guarda con sheet.appendRow(...). Implementar como app web ("Cualquiera").
-        // Pega esa URL aquí abajo. Mientras esté vacía, el formulario funciona
-        // pero no guarda nada (modo simulado).
-        const scriptURL = ''; // <-- [SCRIPT]
+        // ============= Conexión con Google Sheets =============
+        // Cada confirmación se guarda como fila nueva en la hoja "Confirmaciones
+        // boda" (cuenta brunoyclauboda@gmail.com), vía este Apps Script
+        // desplegado como app web ("Cualquiera" tiene acceso).
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby8KxHeaK2Hr3Q4terfYGyMJ56JpQgcBAaOYFI8KKPQ0dVQskJ8hjdrBHY42GxcxWuXBA/exec';
 
         function enviarASheet(formData) {
             if (!scriptURL) return Promise.resolve();
