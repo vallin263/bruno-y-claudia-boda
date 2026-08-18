@@ -574,7 +574,7 @@
             left: 50%;
             top: 43%;
             z-index: 6;
-            width: clamp(126px, 34%, 168px);
+            width: clamp(175px, 44%, 236px);
             aspect-ratio: 1;
             border: 0;
             border-radius: 46% 53% 48% 55% / 52% 47% 55% 46%;
@@ -586,20 +586,35 @@
             display: grid;
             place-items: center;
             font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(2.1rem, 9.5vw, 3.2rem);
             font-style: italic;
-            line-height: 1;
             text-shadow: 0 1px 0 rgba(255,255,255,.55), 0 -1px 0 rgba(58,15,22,.4);
             transition: opacity .55s ease .45s, transform 1.05s cubic-bezier(.45,0,.55,1) .15s;
         }
         .wax-seal::before {
             content: '';
             position: absolute;
-            inset: 13%;
+            inset: 11%;
             border: 1px solid rgba(110,34,50,.45);
             border-radius: 50%;
         }
-        .wax-seal span { position: relative; transform: translateY(-3%); }
+        .wax-seal-names {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.05em;
+            line-height: 1.05;
+        }
+        .wax-seal-names span:first-child,
+        .wax-seal-names span:last-child {
+            font-size: clamp(1.05rem, 4.6vw, 1.65rem);
+        }
+        .wax-seal-amp {
+            font-family: 'Caveat', cursive;
+            font-style: normal;
+            font-size: clamp(.85rem, 3.4vw, 1.15rem);
+            opacity: .85;
+        }
         .envelope-wrap.open .seal-cord { opacity: 0; transform: rotate(48deg) translateY(-30%); }
         .envelope-wrap.open .wax-seal { opacity: 0; transform: translate(-50%,-50%) rotate(24deg) scale(.72); }
         .envelope-hint {
@@ -641,7 +656,13 @@
                     </div>
                     <div class="flap"></div>
                     <div class="seal-cord" aria-hidden="true"></div>
-                    <div class="wax-seal" aria-hidden="true"><span>B&amp;C</span></div>
+                    <div class="wax-seal" aria-hidden="true">
+                        <span class="wax-seal-names">
+                            <span>Bruno</span>
+                            <span class="wax-seal-amp">&amp;</span>
+                            <span>Claudia</span>
+                        </span>
+                    </div>
                 </div>
                 <div class="paper-peek">
                     <div>
