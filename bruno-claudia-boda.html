@@ -235,6 +235,48 @@
             .route-label { margin-top: 34px; }
         }
 
+        /* =================== CEREMONIA =================== */
+        .ceremony-grid { display: grid; gap: 36px; align-items: center; }
+        .ceremony-media {
+            position: relative; display: block; background: var(--ivory-deep);
+            border: 1px solid var(--line); padding: 12px;
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+        }
+        .ceremony-media img { width: 100%; height: auto; display: block; }
+        .ceremony-media:hover, .ceremony-media:focus-visible {
+            box-shadow: 0 22px 44px rgba(36,35,31,0.16); transform: translateY(-3px);
+        }
+        .ceremony-media-hint {
+            position: absolute; right: 24px; bottom: 24px;
+            display: flex; align-items: center; gap: 7px;
+            padding: 9px 16px; border-radius: 999px;
+            background: rgba(31,58,52,0.88); color: var(--white);
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+            opacity: 0.92; transition: opacity 0.35s ease, transform 0.35s ease; pointer-events: none;
+        }
+        .ceremony-media-hint svg { width: 12px; height: 12px; stroke: #C9A227; fill: none; stroke-width: 1.8; }
+        .ceremony-media:hover .ceremony-media-hint,
+        .ceremony-media:focus-visible .ceremony-media-hint { opacity: 1; transform: translateY(-2px); }
+        .ceremony-info { text-align: center; }
+        .ceremony-time {
+            display: inline-block; font-family: var(--font-display); font-style: italic;
+            color: var(--forest); font-size: 1.35rem; margin: 4px 0 12px;
+        }
+        .ceremony-address {
+            font-family: var(--font-display); font-style: italic; font-size: 1.05rem;
+            color: var(--charcoal-soft); margin: 0 auto 26px; max-width: 38ch;
+        }
+        .ceremony-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        @media (min-width: 780px) {
+            .ceremony-grid { grid-template-columns: 1.2fr 0.8fr; gap: 64px; }
+            .ceremony-info { text-align: left; }
+            .ceremony-address { margin-left: 0; margin-right: 0; }
+            .ceremony-actions { justify-content: flex-start; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ceremony-media, .ceremony-media-hint { transition: none; }
+        }
+
         /* =================== LUGAR Y TRANSPORTE =================== */
         .venue-photo { width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: center 70%; }
         .venue-info { margin-top: 30px; text-align: center; }
@@ -273,6 +315,7 @@
         .bus-stop-name { font-weight: 600; font-size: 0.95rem; color: var(--charcoal); }
         .bus-stop-locality { color: var(--charcoal-soft); font-size: 0.85rem; margin-top: 1px; }
         .bus-stop-map { color: var(--terracotta); font-size: 0.78rem; text-decoration: underline; }
+        .bus-route-pending { padding: 2px 6px 20px 32px; color: var(--charcoal-soft); font-size: 0.88rem; font-style: italic; }
 
         .bus-summary-line {
             display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between;
@@ -458,25 +501,23 @@
         }
 
         /* Sobre editorial inspirado en la referencia del cliente. La interacción
-           de apertura se conserva; solo cambia su presentación. */
+           de apertura se conserva; solo cambia su presentación. A pantalla
+           completa siempre (móvil y escritorio), formato vertical. */
         #envelope-gate {
-            gap: 20px;
-            padding: 22px;
-            background: #17283b;
+            gap: 0;
+            padding: 0;
+            background: #f4eedf;
         }
-        .gate-glow {
-            width: 80vmax;
-            height: 80vmax;
-            background: radial-gradient(circle, rgba(219,183,103,.2), transparent 65%);
-        }
-        .envelope-wrap { width: min(460px, 88vw); }
+        .gate-glow { display: none; }
+        .envelope-wrap { width: 100vw; height: 100dvh; }
         .envelope {
             width: 100%;
-            aspect-ratio: 9 / 14;
+            height: 100%;
+            aspect-ratio: auto;
             filter: drop-shadow(0 28px 45px rgba(5,15,25,.48));
         }
         .envelope-inner {
-            border-radius: 3px;
+            border-radius: 0;
             background-color: #f4eedf;
             background-image: repeating-linear-gradient(90deg,
                 #f4eedf 0, #f4eedf 11.11%,
@@ -576,29 +617,25 @@
         .envelope-wrap.open .seal-cord { opacity: 0; transform: rotate(48deg) translateY(-30%); }
         .envelope-wrap.open .wax-seal { opacity: 0; transform: translate(-50%,-50%) rotate(24deg) scale(.72); }
         .envelope-hint {
-            color: #f0d491;
+            position: absolute;
+            left: 50%; bottom: max(22px, env(safe-area-inset-bottom));
+            z-index: 8;
+            width: 90%;
+            max-width: 420px;
+            transform: translateX(-50%);
+            color: #17283b;
             font-size: 1.2rem;
             text-align: center;
         }
+        .env-face { padding-bottom: max(70px, calc(env(safe-area-inset-bottom) + 56px)); }
         .envelope .paper-peek {
             left: 7%; right: 7%; top: 6%; height: 82%;
         }
-        @media (max-width: 600px) {
-            #envelope-gate { padding: 0; gap: 0; background: #f4eedf; }
-            .gate-glow { display: none; }
-            .envelope-wrap { width: 100vw; height: 100dvh; }
-            .envelope { width: 100%; height: 100%; aspect-ratio: auto; }
-            .envelope-inner { border-radius: 0; }
-            .envelope-hint {
-                position: absolute;
-                left: 50%; bottom: max(18px, env(safe-area-inset-bottom));
-                z-index: 8;
-                width: 90%;
-                transform: translateX(-50%);
-                color: #17283b;
-            }
-            .env-face { padding-bottom: max(70px, calc(env(safe-area-inset-bottom) + 56px)); }
-            .wax-seal { top: 43%; width: 34vw; max-width: 145px; }
+        /* El cliente ha pedido ir directos del sobre a la página, sin que
+           se vea ni suba la tarjeta de "invitación". */
+        .envelope-wrap.open .paper-peek { opacity: 0; pointer-events: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .seal-cord, .wax-seal { transition: none !important; }
         }
 
     </style>
@@ -648,8 +685,10 @@
           - Los 3 párrafos de la Historia
 
         DATOS reales que faltan:
-          - Paradas y horarios exactos de las líneas de autobús 1 y 2
-          - Confirmar si "regreso único 04:00h" es correcto
+          - Línea 1 de autobús: aún por aclarar por completo
+          - Paradas y horarios exactos de las líneas 2 y 3 (destino de
+            ida/vuelta ya confirmado, ver busRoutes)
+          - Resto del programa del gran día (cóctel, cena, fiesta, regreso)
 
         Los datos YA confirmados (fecha, lugar, enlaces de mapa, plazo de
         RSVP) están centralizados en el objeto CONFIG al principio del
@@ -761,37 +800,46 @@
         <div class="wrap">
             <p class="eyebrow center">El programa</p>
             <h2 class="display-lg center">Así será <em>el gran día</em></h2>
-            <!-- [LUGAR]/[BUS] ajustar horarios y lugares reales -->
+            <!-- Solo horarios confirmados por la pareja. El resto del programa
+                 (cóctel, cena, fiesta, regreso) aún no tiene hora ni lugar
+                 confirmados — no se inventan aquí. -->
             <div class="route-list">
                 <div class="route-stop">
                     <span class="route-dot"></span>
                     <p class="route-label">Ceremonia</p>
-                    <p class="route-time">18:00h</p>
-                    <p class="route-place">Palacio de Mijares, Cantabria</p>
+                    <p class="route-time">12:30h</p>
+                    <p class="route-place">Santuario de La Barquera</p>
                 </div>
                 <div class="route-stop">
                     <span class="route-dot"></span>
-                    <p class="route-label">Cóctel</p>
-                    <p class="route-time">19:15h</p>
-                    <p class="route-place">Jardines del Palacio de Mijares</p>
-                </div>
-                <div class="route-stop">
-                    <span class="route-dot"></span>
-                    <p class="route-label">Cena</p>
-                    <p class="route-time">21:00h</p>
+                    <p class="route-label">Celebración</p>
+                    <p class="route-time">14:00h</p>
                     <p class="route-place">Palacio de Mijares</p>
                 </div>
-                <div class="route-stop">
-                    <span class="route-dot"></span>
-                    <p class="route-label">Fiesta</p>
-                    <p class="route-time">00:00h</p>
-                    <p class="route-place">Palacio de Mijares</p>
-                </div>
-                <div class="route-stop">
-                    <span class="route-dot"></span>
-                    <p class="route-label">Regreso</p>
-                    <p class="route-time">04:00h</p>
-                    <p class="route-place">Autobús de vuelta — ver abajo</p>
+            </div>
+            <p class="transport-pending" style="margin-top:34px;">El resto del programa (cóctel, cena y fiesta) se compartirá más adelante.</p>
+        </div>
+    </section>
+
+    <!-- ============= CEREMONIA ============= -->
+    <section class="ceremony-section reveal">
+        <div class="wrap-wide">
+            <div class="ceremony-grid">
+                <a class="ceremony-media" href="https://www.google.com/maps/dir/?api=1&amp;destination=P.%C2%BA%20de%20la%20Barquera%2C%2018%2C%2039540%20San%20Vicente%20de%20la%20Barquera%2C%20Cantabria" target="_blank" rel="noopener" aria-label="Abrir la ubicación del Santuario de La Barquera en Google Maps">
+                    <img src="assets/images/santuario-de-la-barquera.jpeg" width="1220" height="566" alt="Ilustración en acuarela del Santuario de La Barquera, una ermita de piedra con espadaña, buganvilla en flor y un ciprés junto a la entrada" loading="lazy" decoding="async">
+                    <span class="ceremony-media-hint" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+                        Ver ubicación
+                    </span>
+                </a>
+                <div class="ceremony-info">
+                    <p class="eyebrow">La ceremonia</p>
+                    <h2 class="display-lg">Santuario de <em>La Barquera</em></h2>
+                    <p class="ceremony-time">12:30h</p>
+                    <p class="ceremony-address" data-cfg="ceremonyAddress">P.º de la Barquera, 18, 39540 San Vicente de la Barquera, Cantabria</p>
+                    <div class="ceremony-actions">
+                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=P.%C2%BA%20de%20la%20Barquera%2C%2018%2C%2039540%20San%20Vicente%20de%20la%20Barquera%2C%20Cantabria" target="_blank" rel="noopener" class="btn btn-solid">Cómo llegar</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -961,65 +1009,15 @@
             fireworkBurst(cx + r.width * 0.32, cy - r.height * 0.15, 420);
         }
 
-        function playRocketSound(ctx, atTime) {
-            const osc = ctx.createOscillator();
-            const g = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(280, atTime);
-            osc.frequency.exponentialRampToValueAtTime(1300, atTime + 0.22);
-            g.gain.setValueAtTime(0.0001, atTime);
-            g.gain.linearRampToValueAtTime(0.09, atTime + 0.04);
-            g.gain.exponentialRampToValueAtTime(0.0001, atTime + 0.25);
-            osc.connect(g); g.connect(ctx.destination);
-            osc.start(atTime); osc.stop(atTime + 0.26);
-
-            const dur = 0.5;
-            const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 1.6);
-            const noise = ctx.createBufferSource();
-            noise.buffer = buffer;
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'lowpass'; filter.frequency.value = 900;
-            const ng = ctx.createGain();
-            ng.gain.setValueAtTime(0.22, atTime + 0.22);
-            noise.connect(filter); filter.connect(ng); ng.connect(ctx.destination);
-            noise.start(atTime + 0.22); noise.stop(atTime + 0.22 + dur);
-
-            for (let k = 0; k < 5; k++) {
-                const t = atTime + 0.3 + Math.random() * 0.35;
-                const co = ctx.createOscillator();
-                const cg = ctx.createGain();
-                co.type = 'square';
-                co.frequency.value = 1600 + Math.random() * 2200;
-                cg.gain.setValueAtTime(0.035, t);
-                cg.gain.exponentialRampToValueAtTime(0.0005, t + 0.05);
-                co.connect(cg); cg.connect(ctx.destination);
-                co.start(t); co.stop(t + 0.06);
-            }
-        }
-
-        function playFireworksAudio() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const now = ctx.currentTime;
-                playRocketSound(ctx, now + 0.30);
-                playRocketSound(ctx, now + 0.52);
-                playRocketSound(ctx, now + 0.72);
-            } catch (e) { /* audio no disponible, seguimos sin sonido */ }
-        }
-
         envelopeWrap.addEventListener('click', () => {
             if (envelopeWrap.classList.contains('open')) return;
             envelopeWrap.classList.add('open');
-            playFireworksAudio();
             setTimeout(() => spawnSparkles(envelopeWrap), 300);
-            setTimeout(() => envelopeWrap.classList.add('rising'), 1450);
             setTimeout(() => {
                 gate.classList.add('hidden');
                 document.body.classList.remove('locked');
                 document.body.classList.add('opened');
-            }, 7800);
+            }, 2700);
         });
 
 
@@ -1044,6 +1042,9 @@
             venueAddress: "Mijares, Cantabria",
             venueDirectionsURL: "https://www.google.com/maps/dir/?api=1&destination=Restaurante+Palacio+Mijares",
             venueMapsURL: "https://maps.app.goo.gl/UQNjYaUsS3TyJ7ce8",
+            ceremonyVenueName: "Santuario de La Barquera",
+            ceremonyAddress: "P.º de la Barquera, 18, 39540 San Vicente de la Barquera, Cantabria",
+            ceremonyTime: "12:30h",
         };
         document.querySelectorAll('[data-cfg]').forEach(el => {
             const key = el.getAttribute('data-cfg');
@@ -1065,24 +1066,33 @@
         // Formato de cada parada: { time: "16:30", name: "...", locality: "...", mapUrl: "" }
         // - Usa siempre HH:MM, sin "h" ni "AM/PM".
         // - mapUrl es opcional: si lo dejas vacío, no se muestra el enlace "Ver ubicación".
+        // - outboundTo / returnTo: destino de ida y de vuelta ya confirmados
+        //   aunque aún no haya paradas ni horarios exactos (stops: []).
+        // - note: aclaración corta opcional (ej. "también solo ida o solo vuelta").
         //
-        // [PENDIENTE] Aún no hay rutas reales confirmadas — el array está vacío
-        // a propósito para no mostrar paradas ni horarios inventados. En cuanto
-        // Bruno y Claudia confirmen el transporte, se rellena así:
-        //
-        // const busRoutes = [
-        //   {
-        //     id: "ruta-1",
-        //     name: "Ruta 1 · [nombre real, ej. Santander centro]",
-        //     arrivalTime: "17:45",
-        //     returnTime: "04:00",
-        //     stops: [
-        //       { time: "16:30", name: "Parada 1", locality: "Localidad", mapUrl: "" },
-        //       { time: "16:45", name: "Parada 2", locality: "Localidad", mapUrl: "" }
-        //     ]
-        //   }
-        // ];
-        const busRoutes = [];
+        // [PENDIENTE] La Línea 1 aún está por aclarar por completo — no se
+        // incluye todavía para no mostrar nada sin confirmar. Las Líneas 2 y 3
+        // tienen destino de ida/vuelta confirmado, pero sus paradas y horarios
+        // exactos siguen pendientes (stops: []) — se añadirán en cuanto se
+        // confirmen, siguiendo el mismo formato que arriba.
+        const busRoutes = [
+            {
+                id: "linea-2",
+                name: "Línea 2 · San Vicente de la Barquera ⇄ Trasvía",
+                outboundTo: "San Vicente de la Barquera",
+                returnTo: "Trasvía",
+                note: "También se podrá coger solo de ida o solo de vuelta.",
+                stops: []
+            },
+            {
+                id: "linea-3",
+                name: "Línea 3 · San Vicente de la Barquera ⇄ Cabezón de la Sal",
+                outboundTo: "San Vicente de la Barquera",
+                returnTo: "Cabezón de la Sal",
+                note: "También se podrá coger solo de ida o solo de vuelta.",
+                stops: []
+            }
+        ];
 
         function busIconSVG() {
             return '<svg class="bus-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="11" rx="2"/><path d="M3 12h18M7 16v2M17 16v2"/><circle cx="7.5" cy="18" r="1.3"/><circle cx="16.5" cy="18" r="1.3"/></svg>';
@@ -1093,20 +1103,26 @@
             const pending = document.getElementById('transportPending');
             if (!busRoutes.length) {
                 container.innerHTML = '';
+                pending.textContent = 'Estamos organizando un servicio de autobús para quienes lo necesitéis. En cuanto tengamos las paradas y los horarios confirmados, los publicaremos aquí — si mientras tanto tienes dudas, escríbenos directamente.';
                 pending.style.display = 'block';
                 return;
             }
-            pending.style.display = 'none';
+            pending.textContent = 'Aún estamos confirmando una tercera línea, y las paradas y horarios exactos de estas dos. En cuanto los tengamos cerrados, los publicaremos aquí.';
+            pending.style.display = 'block';
             container.innerHTML = busRoutes.map((route, i) => {
-                const stopsHtml = route.stops.map(s => `
+                const hasStops = route.stops && route.stops.length;
+                const stopsHtml = hasStops ? route.stops.map(s => `
                     <div class="bus-stop">
                         <span class="bus-stop-dot" aria-hidden="true"></span>
                         <p class="bus-stop-time">${escapeHtml(s.time)}</p>
                         <p class="bus-stop-name">${escapeHtml(s.name)}</p>
                         ${s.locality ? `<p class="bus-stop-locality">${escapeHtml(s.locality)}</p>` : ''}
                         ${s.mapUrl ? `<a class="bus-stop-map" href="${escapeHtml(s.mapUrl)}" target="_blank" rel="noopener">Ver ubicación</a>` : ''}
-                    </div>`).join('');
+                    </div>`).join('')
+                    : `<p class="bus-route-pending">Paradas y horario exactos: pendientes de confirmar.${route.note ? ' ' + escapeHtml(route.note) : ''}</p>`;
                 const summaryBits = [];
+                if (route.outboundTo) summaryBits.push(`<span>Ida a: <strong>${escapeHtml(route.outboundTo)}</strong></span>`);
+                if (route.returnTo) summaryBits.push(`<span>Vuelta a: <strong>${escapeHtml(route.returnTo)}</strong></span>`);
                 if (route.arrivalTime) summaryBits.push(`<span>Llegada prevista: <strong>${escapeHtml(CONFIG.venueName)} · ${escapeHtml(route.arrivalTime)}</strong></span>`);
                 if (route.returnTime) summaryBits.push(`<span>Regreso: <strong>${escapeHtml(route.returnTime)}</strong> desde ${escapeHtml(CONFIG.venueName)}</span>`);
                 return `
@@ -1116,8 +1132,8 @@
                         <span class="bus-route-name">${escapeHtml(route.name)}</span>
                         <span class="bus-route-toggle"><span class="bus-route-toggle-plus">+</span><span class="bus-route-toggle-minus">–</span></span>
                     </summary>
-                    <div class="bus-stops">${stopsHtml}</div>
                     ${summaryBits.length ? `<div class="bus-summary-line">${summaryBits.join('')}</div>` : ''}
+                    <div class="bus-stops">${stopsHtml}</div>
                 </details>`;
             }).join('');
         }
@@ -1326,7 +1342,7 @@
 
         fBusEl.addEventListener('change', (e) => {
             const route = busRoutes.find(r => r.id === e.target.value);
-            if (!route) {
+            if (!route || !route.stops || !route.stops.length) {
                 stopRowEl.classList.add('f-hidden');
                 fParadaEl.innerHTML = '';
                 fParadaHoraEl.value = '';

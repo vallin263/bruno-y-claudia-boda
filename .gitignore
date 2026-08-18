@@ -7,3 +7,6 @@
 !assets/images/galeria/*.jpg
 !assets/images/galeria/*.jpeg
 !assets/images/galeria/*.webp
+
+# Fotos de lugares (ceremonia, celebracion) SI se suben al repo
+!assets/images/santuario-de-la-barquera.jpeg
