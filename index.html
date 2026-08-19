@@ -639,6 +639,36 @@
             .seal-cord, .wax-seal { transition: none !important; }
         }
 
+        .music-toggle {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 50;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--forest);
+            color: var(--ivory);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,.22);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition: opacity .4s ease, transform .4s ease, background .2s ease;
+        }
+        body.opened .music-toggle { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .music-toggle:hover { background: var(--terracotta); }
+        .music-toggle svg { width: 22px; height: 22px; }
+        .music-toggle .mute-slash { opacity: 0; transition: opacity .2s ease; }
+        .music-toggle.muted .mute-slash { opacity: 1; }
+        .music-toggle.muted .note-head { opacity: .5; }
+        @media (prefers-reduced-motion: reduce) {
+            .music-toggle { transition: none; }
+        }
+
     </style>
 </head>
 <body class="locked">
@@ -675,6 +705,15 @@
         <p class="envelope-hint">Pulsa el sello para abrir la invitación</p>
     </div>
 
+    <audio id="bgMusic" loop preload="none" src="assets/audio/hasta-mi-final.mp3"></audio>
+    <button type="button" id="musicToggle" class="music-toggle" aria-label="Silenciar música" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 17V5.5l10-2v11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="note-head" cx="6.5" cy="17" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <circle class="note-head" cx="16.5" cy="15" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <line class="mute-slash" x1="3" y1="21" x2="21" y2="3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+    </button>
 
     <!--
         ================================================================
@@ -991,11 +1030,22 @@
         envelopeWrap.addEventListener('click', () => {
             if (envelopeWrap.classList.contains('open')) return;
             envelopeWrap.classList.add('open');
+            bgMusic.play().catch(() => {});
             setTimeout(() => {
                 gate.classList.add('hidden');
                 document.body.classList.remove('locked');
                 document.body.classList.add('opened');
             }, 2700);
+        });
+
+        // ============= Música de fondo =============
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        musicToggle.addEventListener('click', () => {
+            bgMusic.muted = !bgMusic.muted;
+            musicToggle.classList.toggle('muted', bgMusic.muted);
+            musicToggle.setAttribute('aria-pressed', String(bgMusic.muted));
+            musicToggle.setAttribute('aria-label', bgMusic.muted ? 'Activar música' : 'Silenciar música');
         });
 
 
