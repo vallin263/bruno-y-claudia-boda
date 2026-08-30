@@ -11,3 +11,7 @@
 # Fotos de lugares (ceremonia, celebracion) SI se suben al repo
 !assets/images/santuario-de-la-barquera.jpeg
 !assets/images/palacio-de-mijares.jpeg
+
+# Codigos QR de la web (solo codifican la URL publica) SI se suben al repo
+!qr-bodabrunoyclaudia.png
+!qr-bodabrunoyclaudia-sello.png
