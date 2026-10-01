@@ -603,6 +603,12 @@
             font-size: clamp(.85rem, 3.4vw, 1.15rem);
             opacity: .85;
         }
+        /* Sello con el logotipo B&C de la pareja */
+        .wax-seal { border-radius: 50%; background: #fff; overflow: hidden; width: clamp(190px, 50%, 270px);
+            box-shadow: 0 10px 22px rgba(60,45,20,.32), 0 0 0 4px rgba(255,255,255,.9); transform: translate(-50%, -50%); }
+        .wax-seal::before { display: none; }
+        .wax-seal-logo { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .envelope-wrap.open .wax-seal { transform: translate(-50%,-50%) scale(.72); }
         .envelope-wrap.open .seal-cord { opacity: 0; transform: rotate(48deg) translateY(-30%); }
         .envelope-wrap.open .wax-seal { opacity: 0; transform: translate(-50%,-50%) rotate(24deg) scale(.72); }
         .envelope-hint {
@@ -675,11 +681,7 @@
                     <div class="flap"></div>
                     <div class="seal-cord" aria-hidden="true"></div>
                     <div class="wax-seal" aria-hidden="true">
-                        <span class="wax-seal-names">
-                            <span>Bruno</span>
-                            <span class="wax-seal-amp">&amp;</span>
-                            <span>Claudia</span>
-                        </span>
+                        <img class="wax-seal-logo" src="assets/images/logo-sello.jpeg" width="700" height="700" alt="Logotipo B&C de Bruno y Claudia">
                     </div>
                 </div>
                 <div class="paper-peek">
