@@ -139,6 +139,14 @@
         .c-rest .c-item small { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--stone); }
         .num-pulse { opacity: 0.45; }
 
+        /* =================== NUESTRA HISTORIA =================== */
+        .intro-section { padding: 0 0 clamp(56px, 8vw, 96px); }
+        .intro-photo { width: 100%; height: auto; display: block; }
+        .intro-card { position: relative; margin: clamp(-90px, -9vw, -48px) auto 0; max-width: 620px; width: calc(100% - 44px); background: var(--ivory); padding: clamp(30px, 5vw, 46px) clamp(20px, 5vw, 36px); text-align: center; box-shadow: 0 20px 50px rgba(37,37,33,0.18); }
+        .intro-text { font-family: var(--font-display); font-style: italic; font-size: clamp(1.2rem, 3.2vw, 1.7rem); line-height: 1.5; color: var(--charcoal); max-width: none; }
+        .intro-text + .intro-text { margin-top: 1.3em; color: var(--forest); }
+        @media (max-width: 700px) { .intro-photo { aspect-ratio: 1 / 1; object-fit: cover; object-position: 60% center; } }
+
         /* =================== HISTORIA =================== */
         .story-entry { }
         .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 72px); align-items: center; }
@@ -736,6 +744,15 @@
                     <div class="c-item"><span id="cd-secs">00</span><small>s</small></div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ============= NUESTRA HISTORIA (texto de la pareja) ============= -->
+    <section class="intro-section reveal">
+        <img class="intro-photo" src="assets/images/nuestra-historia.jpeg" width="1600" height="1066" alt="Bruno y Claudia riendo y paseando abrazados por la playa" loading="lazy" decoding="async">
+        <div class="intro-card">
+            <p class="intro-text">Una conversación,<br>un montón de momentos<br>y una historia que seguimos escribiendo.</p>
+            <p class="intro-text">Hoy queremos dar un paso más<br>y celebrar nuestro «sí, quiero»<br>con vosotros. 🤍</p>
         </div>
     </section>
 
