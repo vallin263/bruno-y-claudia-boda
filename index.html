@@ -360,6 +360,10 @@
         .closing-date { margin: 10px 0 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.78rem; color: rgba(255,255,255,0.85); }
 
         footer.site-end { background: var(--charcoal); color: rgba(244,240,232,0.6); text-align: center; padding: 30px 20px; font-size: 0.75rem; letter-spacing: 1px; }
+        footer.site-end p { max-width: none; margin: 0 auto; }
+        footer.site-end p + p { margin-top: 6px; }
+        footer.site-end a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(244,240,232,0.3); }
+        footer.site-end a:hover { color: var(--white); }
 
         @media (max-width: 480px) {
             section { padding: 56px 0; }
@@ -1035,7 +1039,10 @@
         </div>
     </section>
 
-    <footer class="site-end">Bruno &amp; Claudia · Palacio de Mijares, Cantabria</footer>
+    <footer class="site-end">
+        <p class="site-end-phones">Bruno · <a href="tel:+34671771780">671 771 780</a> <span aria-hidden="true">/</span> Claudia · <a href="tel:+34615918642">615 918 642</a></p>
+        <p>Palacio de Mijares, Cantabria</p>
+    </footer>
 
     <script>
         // ============= Sobre de entrada (NO TOCAR) =============
