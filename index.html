@@ -345,12 +345,13 @@
         .success-block p { margin: 0 auto; color: var(--charcoal-soft); }
 
         /* =================== CIERRE =================== */
-        .closing { position: relative; padding: 0; min-height: max(92vh, 680px); display: flex; align-items: flex-start; justify-content: center; overflow: hidden; }
+        .closing { position: relative; padding: 0; min-height: max(92vh, 680px); display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
         .closing-photo { position: absolute; inset: 0; }
-        .closing-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
-        @media (max-width: 700px) { .closing-photo img { object-position: 64% 50%; } }
-        .closing-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,17,14,0.7) 0%, rgba(20,17,14,0.45) 40%, rgba(20,17,14,0.05) 70%); }
-        .closing-content { position: relative; z-index: 1; text-align: center; color: var(--white); padding: 40px 24px; }
+        .closing-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+        @media (max-width: 700px) { .closing-photo img { object-position: 55% 50%; } }
+        @media (min-width: 701px) { .closing { min-height: max(100vh, 820px); } .closing-photo img { object-position: center 0%; } }
+        .closing-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,17,14,0.78) 0%, rgba(20,17,14,0.4) 35%, rgba(20,17,14,0) 65%); }
+        .closing-content { position: relative; z-index: 1; text-align: center; color: var(--white); padding: 40px 24px clamp(40px, 7vw, 72px); }
         .closing-content .eyebrow { color: var(--terracotta-pale); justify-content: center; }
         .closing-content .eyebrow, .closing-date { margin-left: auto; margin-right: auto; }
         .closing-names { font-family: var(--font-display); font-style: italic; font-size: clamp(2.2rem, 6vw, 3.4rem); color: var(--white); }
@@ -1021,7 +1022,7 @@
          [FOTO] Usa temporalmente la misma foto de portada. Para cambiarla,
          sustituye el src del <img> de aquí abajo por la foto definitiva. -->
     <section class="closing reveal">
-        <div class="closing-photo"><img src="assets/images/portada.jpeg" width="1600" height="1066" alt="Bruno y Claudia" loading="lazy" decoding="async"></div>
+        <div class="closing-photo"><img src="assets/images/cierre-calendario.jpeg" width="2000" height="1333" alt="Bruno y Claudia frente a frente en la orilla, con su reflejo en el agua" loading="lazy" decoding="async"></div>
         <div class="closing-content">
             <p class="eyebrow">Con todo nuestro cariño</p>
             <p class="closing-names">Bruno &amp; Claudia</p>
