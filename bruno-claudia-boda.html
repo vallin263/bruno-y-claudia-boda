@@ -114,18 +114,19 @@
         @media (prefers-reduced-motion: reduce) { .hero-enter { opacity: 1; transform: none; transition: none; } }
 
         /* =================== PORTADA =================== */
-        .hero { position: relative; min-height: 100dvh; display: flex; align-items: flex-end; padding: 0; overflow: hidden; }
+        .hero { position: relative; min-height: 100dvh; display: flex; align-items: flex-start; padding: 0; overflow: hidden; }
         .hero-photo { position: absolute; inset: 0; }
         .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; transform: scale(1.03); animation: heroZoom 16s ease-out forwards; }
         @keyframes heroZoom { to { transform: scale(1); } }
         @media (prefers-reduced-motion: reduce) { .hero-photo img { animation: none; } }
-        .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,17,14,0.58) 0%, rgba(20,17,14,0.14) 42%, rgba(20,17,14,0.03) 65%); }
-        .hero-content { position: relative; z-index: 1; color: var(--white); width: 100%; padding: 0 24px clamp(56px, 9vw, 100px); text-align: center; }
-        .hero-content .eyebrow { color: var(--terracotta-pale); justify-content: center; }
-        .hero-content h1 { color: var(--white); font-size: clamp(2.1rem, 5.6vw, 4rem); }
-        .hero-note { font-family: var(--font-display); font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: rgba(255,255,255,0.88); margin: 18px auto 30px; max-width: 40ch; }
+        .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(243,241,234,0.55) 0%, rgba(243,241,234,0.2) 35%, rgba(243,241,234,0) 55%); }
+        .hero-content { position: relative; z-index: 1; color: var(--charcoal); width: 100%; padding: clamp(52px, 9vh, 110px) 24px 0; text-align: center; }
+        .hero-content .eyebrow { color: var(--forest); justify-content: center; margin-left: auto; margin-right: auto; }
+        .hero-content h1 { color: var(--charcoal); font-size: clamp(2.1rem, 5.6vw, 4rem); }
+        .hero-note { font-family: var(--font-display); font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--charcoal-soft); margin: 18px auto 30px; max-width: 40ch; }
         .hero-content .btn-solid { background: var(--terracotta); }
-        .hero-content .btn-solid:hover { background: var(--white); color: var(--charcoal); }
+        .hero-content .btn-solid:hover { background: var(--charcoal); color: var(--white); }
+        @media (max-width: 700px) { .hero-photo img { object-position: 64% 50%; } }
         @media (max-width: 480px) { .hero-note { max-width: 26ch; } }
 
         /* =================== CUENTA ATRAS =================== */
@@ -146,6 +147,11 @@
         .intro-text { font-family: var(--font-display); font-style: italic; font-size: clamp(1.2rem, 3.2vw, 1.7rem); line-height: 1.5; color: var(--charcoal); max-width: none; }
         .intro-text + .intro-text { margin-top: 1.3em; color: var(--forest); }
         @media (max-width: 700px) { .intro-photo { aspect-ratio: 1 / 1; object-fit: cover; object-position: 60% center; } }
+        /* =================== DESEO (manos) =================== */
+        .wish-section { position: relative; min-height: max(70vh, 520px); display: flex; align-items: flex-start; justify-content: center; padding: 0; overflow: hidden; }
+        .wish-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+        .wish-section::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,17,14,0.66) 0%, rgba(20,17,14,0.12) 45%, rgba(20,17,14,0) 100%); }
+        .wish-text { position: relative; z-index: 1; font-family: var(--font-display); font-style: italic; font-size: clamp(1.25rem, 3.4vw, 1.9rem); line-height: 1.5; color: var(--white); text-align: center; max-width: none; padding: clamp(40px, 8vw, 72px) 22px 0; }
 
         /* =================== HISTORIA =================== */
         .story-entry { }
@@ -345,6 +351,7 @@
         .closing-photo::after { content: ''; position: absolute; inset: 0; background: rgba(20,17,14,0.5); }
         .closing-content { position: relative; z-index: 1; text-align: center; color: var(--white); padding: 40px 24px; }
         .closing-content .eyebrow { color: var(--terracotta-pale); justify-content: center; }
+        .closing-content .eyebrow, .closing-date { margin-left: auto; margin-right: auto; }
         .closing-names { font-family: var(--font-display); font-style: italic; font-size: clamp(2.2rem, 6vw, 3.4rem); color: var(--white); }
         .closing-date { margin: 10px 0 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.78rem; color: rgba(255,255,255,0.85); }
 
@@ -754,6 +761,12 @@
             <p class="intro-text">Una conversación,<br>un montón de momentos<br>y una historia que seguimos escribiendo.</p>
             <p class="intro-text">Hoy queremos dar un paso más<br>y celebrar nuestro «sí, quiero»<br>con vosotros. 🤍</p>
         </div>
+    </section>
+
+    <!-- ============= DESEO (foto de las manos + texto de la pareja) ============= -->
+    <section class="wish-section reveal">
+        <img class="wish-photo" src="assets/images/cierre.jpeg" width="1600" height="1066" alt="Bruno y Claudia de la mano" loading="lazy" decoding="async">
+        <p class="wish-text">Que nunca nos falten motivos para celebrar,<br>personas con las que hacerlo<br>y momentos que recordar toda la vida.</p>
     </section>
 
     <!-- ============= HISTORIA =============
