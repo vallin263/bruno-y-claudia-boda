@@ -144,14 +144,15 @@
         .intro-section { padding: 0 0 clamp(56px, 8vw, 96px); }
         .intro-photo { width: 100%; height: auto; display: block; }
         .intro-card { position: relative; margin: clamp(-90px, -9vw, -48px) auto 0; max-width: 620px; width: calc(100% - 44px); background: var(--ivory); padding: clamp(30px, 5vw, 46px) clamp(20px, 5vw, 36px); text-align: center; box-shadow: 0 20px 50px rgba(37,37,33,0.18); }
+        @media (max-width: 700px) { .wish-photo { object-position: 58% center; } }
         .intro-text { font-family: var(--font-display); font-style: italic; font-size: clamp(1.2rem, 3.2vw, 1.7rem); line-height: 1.5; color: var(--charcoal); max-width: none; }
         .intro-text + .intro-text { margin-top: 1.3em; color: var(--forest); }
-        @media (max-width: 700px) { .intro-photo { aspect-ratio: 1 / 1; object-fit: cover; object-position: 60% center; } }
+        @media (max-width: 700px) { .intro-photo { aspect-ratio: 1 / 1; object-fit: cover; object-position: 68% center; } }
         /* =================== DESEO (manos) =================== */
-        .wish-section { position: relative; min-height: max(70vh, 520px); display: flex; align-items: flex-start; justify-content: center; padding: 0; overflow: hidden; }
-        .wish-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
-        .wish-section::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,17,14,0.66) 0%, rgba(20,17,14,0.12) 45%, rgba(20,17,14,0) 100%); }
-        .wish-text { position: relative; z-index: 1; font-family: var(--font-display); font-style: italic; font-size: clamp(1.25rem, 3.4vw, 1.9rem); line-height: 1.5; color: var(--white); text-align: center; max-width: none; padding: clamp(40px, 8vw, 72px) 22px 0; }
+        .wish-section { position: relative; min-height: max(70vh, 520px); display: flex; align-items: flex-end; justify-content: center; padding: 0; overflow: hidden; }
+        .wish-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+        .wish-section::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,17,14,0.8) 0%, rgba(20,17,14,0.35) 40%, rgba(20,17,14,0) 68%); }
+        .wish-text { position: relative; z-index: 1; font-family: var(--font-display); font-style: italic; font-size: clamp(1.25rem, 3.4vw, 1.9rem); line-height: 1.5; color: var(--white); text-align: center; max-width: none; padding: 0 22px clamp(40px, 8vw, 72px); }
 
         /* =================== HISTORIA =================== */
         .story-entry { }
@@ -772,7 +773,7 @@
 
     <!-- ============= NUESTRA HISTORIA (texto de la pareja) ============= -->
     <section class="intro-section reveal">
-        <img class="intro-photo" src="assets/images/nuestra-historia.jpeg" width="1600" height="1066" alt="Bruno y Claudia riendo y paseando abrazados por la playa" loading="lazy" decoding="async">
+        <img class="intro-photo" src="assets/images/cierre.jpeg" width="1600" height="1066" alt="Bruno y Claudia de la mano" loading="lazy" decoding="async">
         <div class="intro-card">
             <p class="intro-text">Una conversación,<br>un montón de momentos<br>y una historia que seguimos escribiendo.</p>
             <p class="intro-text">Hoy queremos dar un paso más<br>y celebrar nuestro «sí, quiero»<br>con vosotros. 🤍</p>
@@ -781,7 +782,7 @@
 
     <!-- ============= DESEO (foto de las manos + texto de la pareja) ============= -->
     <section class="wish-section reveal">
-        <img class="wish-photo" src="assets/images/cierre.jpeg" width="1600" height="1066" alt="Bruno y Claudia de la mano" loading="lazy" decoding="async">
+        <img class="wish-photo" src="assets/images/nuestra-historia.jpeg" width="1600" height="1066" alt="Bruno y Claudia riendo y paseando abrazados por la playa" loading="lazy" decoding="async">
         <p class="wish-text">Que nunca nos falten motivos para celebrar,<br>personas con las que hacerlo<br>y momentos que recordar toda la vida.</p>
     </section>
 
