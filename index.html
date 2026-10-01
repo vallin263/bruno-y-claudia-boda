@@ -356,6 +356,7 @@
         .closing-content .eyebrow { color: var(--terracotta-pale); justify-content: center; }
         .closing-content .eyebrow, .closing-date { margin-left: auto; margin-right: auto; }
         .closing-names { font-family: var(--font-display); font-style: italic; font-size: clamp(2.2rem, 6vw, 3.4rem); color: var(--white); }
+        .closing-names .amp { font-style: normal; font-weight: 500; }
         .closing-date { margin: 10px 0 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.78rem; color: rgba(255,255,255,0.85); }
 
         footer.site-end { background: var(--charcoal); color: rgba(244,240,232,0.6); text-align: center; padding: 30px 20px; font-size: 0.75rem; letter-spacing: 1px; }
@@ -604,7 +605,7 @@
             opacity: .85;
         }
         /* Sello con el logotipo B&C de la pareja */
-        .wax-seal { border-radius: 50%; background: #fff; overflow: hidden; width: clamp(190px, 50%, 270px);
+        .wax-seal { border-radius: 50%; background: #fff; overflow: hidden; width: clamp(150px, 40%, 215px);
             box-shadow: 0 10px 22px rgba(60,45,20,.32), 0 0 0 4px rgba(255,255,255,.9); transform: translate(-50%, -50%); }
         .wax-seal::before { display: none; }
         .wax-seal-logo { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -1028,7 +1029,7 @@
         <div class="closing-photo"><img src="assets/images/cierre-calendario.jpeg" width="2000" height="1333" alt="Bruno y Claudia frente a frente en la orilla, con su reflejo en el agua" loading="lazy" decoding="async"></div>
         <div class="closing-content">
             <p class="eyebrow">Con todo nuestro cariño</p>
-            <p class="closing-names">Bruno &amp; Claudia</p>
+            <p class="closing-names">Bruno <span class="amp">&amp;</span> Claudia</p>
             <p class="closing-date" data-cfg="closingDate">13 de marzo de 2027 · Cantabria</p>
             <a id="calendarBtn" href="#" target="_blank" rel="noopener" class="btn btn-outline on-dark">Añadir a mi calendario</a>
         </div>
