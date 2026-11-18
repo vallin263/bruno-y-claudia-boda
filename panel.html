@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Panel · Bruno & Claudia</title>
+
+    <!--
+        Panel privado de confirmaciones. Lee los datos de la hoja de Google
+        a través del mismo Apps Script que usa el formulario, pidiendo una
+        contraseña (propiedad CLAVE_PANEL del script). La contraseña no está
+        escrita en este archivo.
+        Vista de ejemplo con datos inventados: panel.html?demo=1
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ivory:      #F3F1EA;
+            --ivory-deep: #EAE5D8;
+            --charcoal:   #24231F;
+            --charcoal-soft: #5C574C;
+            --forest:     #1F3A34;
+            --forest-pale:#7C9186;
+            --olive:      #A3A380;
+            --stone:      #8A8A82;
+            --line:       #DAD4C3;
+            --white:      #FFFFFF;
+            --no:         #9A5A45;
+            --font-display: 'Source Serif 4', Georgia, serif;
+            --font-body:    'Inter', 'Segoe UI', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--ivory); color: var(--charcoal);
+            font-family: var(--font-body); line-height: 1.55;
+            min-height: 100vh;
+        }
+        [hidden] { display: none !important; }
+        :focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+
+        .eyebrow {
+            font-weight: 600; font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--forest);
+        }
+        h1, h2 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; }
+        h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.15; }
+        h1 em, h2 em { font-style: italic; color: var(--forest); }
+        h2 { font-size: 1.3rem; }
+
+        .btn {
+            font: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+            padding: 10px 18px; border-radius: 4px; border: 1px solid var(--forest);
+            background: transparent; color: var(--forest); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: background .15s, color .15s;
+        }
+        .btn:hover { background: var(--forest); color: var(--white); }
+        .btn-solid { background: var(--forest); color: var(--white); }
+        .btn-solid:hover { background: #16302a; }
+        .btn:disabled { opacity: .55; cursor: default; }
+
+        /* ---------- Acceso ---------- */
+        .login {
+            min-height: 100vh; display: grid; place-items: center; padding: 24px 18px;
+        }
+        .login-card {
+            width: 100%; max-width: 380px; background: var(--white);
+            border: 1px solid var(--line); border-radius: 8px; padding: 34px 28px;
+            text-align: center;
+        }
+        .login-card h1 { margin: 10px 0 6px; }
+        .login-card p.sub { color: var(--charcoal-soft); font-size: 0.92rem; margin-bottom: 22px; }
+        .login-card label { display: block; text-align: left; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; }
+        .login-card input {
+            width: 100%; font: inherit; padding: 12px 14px; border: 1px solid var(--line);
+            border-radius: 4px; background: var(--ivory); margin-bottom: 14px;
+        }
+        .login-card .btn { width: 100%; justify-content: center; padding: 12px; }
+        .login-error { color: var(--no); font-size: 0.88rem; min-height: 1.4em; margin-top: 12px; }
+
+        /* ---------- Cabecera ---------- */
+        header.top { padding: 34px 0 22px; border-bottom: 1px solid var(--line); }
+        .top-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; }
+        .top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .updated { color: var(--stone); font-size: 0.8rem; margin-top: 6px; }
+        .demo-flag {
+            display: inline-block; background: var(--olive); color: var(--charcoal);
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 3px 9px; border-radius: 3px; margin-left: 8px; vertical-align: middle;
+        }
+
+        main.wrap { padding-top: 26px; padding-bottom: 70px; }
+        section.block { margin-top: 34px; }
+        .block-head { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+        .block-head .count { color: var(--stone); font-size: 0.85rem; }
+
+        /* ---------- Totales ---------- */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .stat {
+            background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 18px 18px 16px;
+        }
+        .stat.main { background: var(--forest); border-color: var(--forest); color: var(--white); }
+        .stat .num {
+            font-family: var(--font-display); font-size: 2.5rem; line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat .lbl { font-size: 0.82rem; font-weight: 600; margin-top: 8px; }
+        .stat .hint { font-size: 0.76rem; color: var(--stone); margin-top: 2px; }
+        .stat.main .hint { color: #b9c9c1; }
+
+        /* ---------- Autobuses ---------- */
+        .bus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; align-items: start; }
+        .bus { background: var(--white); border: 1px solid var(--line); border-radius: 8px; }
+        .bus summary {
+            list-style: none; cursor: pointer; padding: 16px 18px; border-radius: 8px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .bus summary::-webkit-details-marker { display: none; }
+        .bus summary:hover { background: var(--ivory); }
+        .bus .name { font-weight: 600; font-size: 0.9rem; flex: 1; }
+        .bus .name small { display: block; font-weight: 400; color: var(--stone); font-size: 0.76rem; }
+        .bus .seats { font-family: var(--font-display); font-size: 1.7rem; line-height: 1; font-variant-numeric: tabular-nums; }
+        .bus .chev {
+            width: 9px; height: 9px; border-right: 2px solid var(--forest); border-bottom: 2px solid var(--forest);
+            transform: rotate(45deg); margin: -4px 2px 0 0; transition: transform .15s;
+        }
+        .bus[open] .chev { transform: rotate(-135deg); margin-top: 4px; }
+        .bus ol { list-style: none; border-top: 1px solid var(--line); padding: 6px 18px 12px; }
+        .bus ol li { padding: 7px 0; font-size: 0.9rem; border-bottom: 1px solid var(--ivory-deep); }
+        .bus ol li:last-child { border-bottom: 0; }
+        .bus ol li small { color: var(--stone); font-size: 0.76rem; margin-left: 6px; }
+        .bus-all { font: inherit; font-size: 0.82rem; font-weight: 600; color: var(--forest); background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+        /* ---------- Lista ---------- */
+        .tools { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+        .tools input[type="search"] {
+            flex: 1 1 220px; font: inherit; padding: 10px 14px; border: 1px solid var(--line);
+            border-radius: 4px; background: var(--white);
+        }
+        .chips { display: flex; gap: 6px; }
+        .chip {
+            font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line);
+            background: var(--white); color: var(--charcoal-soft);
+        }
+        .chip[aria-pressed="true"] { background: var(--forest); border-color: var(--forest); color: var(--white); }
+
+        .table-box { background: var(--white); border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th {
+            text-align: left; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--stone); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--line);
+            white-space: nowrap;
+        }
+        td { padding: 13px 16px; border-bottom: 1px solid var(--ivory-deep); vertical-align: top; }
+        tr:last-child td { border-bottom: 0; }
+        td.name { font-weight: 600; }
+        td.date { color: var(--stone); white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 0.82rem; }
+        td .muted { color: var(--stone); }
+        .pill {
+            display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px;
+            border-radius: 999px; white-space: nowrap;
+        }
+        .pill.si { background: #DDE7E1; color: var(--forest); }
+        .pill.no { background: #F0E0D9; color: var(--no); }
+        .empty { padding: 30px 16px; text-align: center; color: var(--stone); font-size: 0.9rem; }
+
+        /* ---------- Listas de texto ---------- */
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+        .list { background: var(--white); border: 1px solid var(--line); border-radius: 8px; }
+        .list li { list-style: none; padding: 13px 16px; border-bottom: 1px solid var(--ivory-deep); font-size: 0.9rem; }
+        .list li:last-child { border-bottom: 0; }
+        .list .who { display: block; font-size: 0.76rem; color: var(--stone); margin-top: 2px; }
+        .messages li { font-family: var(--font-display); font-size: 1rem; }
+        .messages .who { font-family: var(--font-body); }
+
+        @media (max-width: 760px) {
+            .stats { grid-template-columns: 1fr 1fr; }
+            .two { grid-template-columns: 1fr; }
+            /* La tabla pasa a tarjetas */
+            .table-box { border: 0; background: transparent; overflow: visible; }
+            table, tbody, tr, td { display: block; width: 100%; }
+            thead { display: none; }
+            tr { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+            td { border: 0; padding: 3px 0; }
+            td[data-l]:not(:empty)::before {
+                content: attr(data-l) ": "; color: var(--stone); font-size: 0.76rem;
+            }
+            td.name { font-size: 1rem; }
+            td.name::before, td.state::before { content: none !important; }
+            .empty { background: var(--white); border: 1px solid var(--line); border-radius: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============= ACCESO ============= -->
+    <div class="login" id="login">
+        <form class="login-card" id="loginForm">
+            <p class="eyebrow">Bruno & Claudia</p>
+            <h1>Panel de <em>confirmaciones</em></h1>
+            <p class="sub">Solo para los novios.</p>
+            <label for="clave">Contraseña</label>
+            <input type="password" id="clave" autocomplete="current-password" required>
+            <button type="submit" class="btn btn-solid" id="loginBtn">Entrar</button>
+            <p class="login-error" id="loginError" role="alert"></p>
+        </form>
+    </div>
+
+    <!-- ============= PANEL ============= -->
+    <div id="panel" hidden>
+        <header class="top">
+            <div class="wrap top-row">
+                <div>
+                    <p class="eyebrow">Bruno & Claudia · 13 de marzo de 2027</p>
+                    <h1>Panel de <em>confirmaciones</em><span class="demo-flag" id="demoFlag" hidden>Ejemplo</span></h1>
+                    <p class="updated" id="updated"></p>
+                </div>
+                <div class="top-actions">
+                    <button class="btn" id="refreshBtn" type="button">Actualizar</button>
+                    <a class="btn" id="sheetLink" target="_blank" rel="noopener" hidden>Abrir hoja</a>
+                    <button class="btn" id="logoutBtn" type="button">Salir</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="wrap">
+            <div class="stats">
+                <div class="stat main"><div class="num" id="sPersonas">0</div><div class="lbl">Personas que vienen</div><div class="hint">Invitados + acompañantes</div></div>
+                <div class="stat"><div class="num" id="sSi">0</div><div class="lbl">Confirman que sí</div><div class="hint" id="sAcomp">0 con acompañante</div></div>
+                <div class="stat"><div class="num" id="sNo">0</div><div class="lbl">No pueden venir</div><div class="hint">&nbsp;</div></div>
+                <div class="stat"><div class="num" id="sTotal">0</div><div class="lbl">Respuestas recibidas</div><div class="hint">&nbsp;</div></div>
+            </div>
+
+            <section class="block">
+                <div class="block-head"><h2>Autobuses</h2><button class="bus-all" id="busAll" type="button">Desplegar todos</button></div>
+                <div class="bus-grid" id="busGrid"></div>
+            </section>
+
+            <section class="block">
+                <div class="block-head"><h2>Invitados</h2><span class="count" id="listCount"></span></div>
+                <div class="tools">
+                    <input type="search" id="search" placeholder="Buscar por nombre…" aria-label="Buscar por nombre">
+                    <div class="chips" role="group" aria-label="Filtrar por asistencia">
+                        <button class="chip" type="button" data-f="todos" aria-pressed="true">Todos</button>
+                        <button class="chip" type="button" data-f="si" aria-pressed="false">Vienen</button>
+                        <button class="chip" type="button" data-f="no" aria-pressed="false">No vienen</button>
+                    </div>
+                </div>
+                <div class="table-box">
+                    <table>
+                        <thead><tr><th>Nombre</th><th>Asistencia</th><th>Acompañante</th><th>Autobús</th><th>Alergias</th><th>Fecha</th></tr></thead>
+                        <tbody id="rows"></tbody>
+                    </table>
+                    <p class="empty" id="rowsEmpty" hidden>No hay nadie que coincida.</p>
+                </div>
+            </section>
+
+            <section class="block two">
+                <div>
+                    <div class="block-head"><h2>Alergias e intolerancias</h2><span class="count" id="alCount"></span></div>
+                    <ul class="list" id="alList"></ul>
+                </div>
+                <div>
+                    <div class="block-head"><h2>Canciones pedidas</h2><span class="count" id="caCount"></span></div>
+                    <ul class="list" id="caList"></ul>
+                </div>
+            </section>
+
+            <section class="block">
+                <div class="block-head"><h2>Mensajes para vosotros</h2><span class="count" id="meCount"></span></div>
+                <ul class="list messages" id="meList"></ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Mismo Apps Script que el formulario de la web.
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby8KxHeaK2Hr3Q4terfYGyMJ56JpQgcBAaOYFI8KKPQ0dVQskJ8hjdrBHY42GxcxWuXBA/exec';
+        const DEMO = new URLSearchParams(location.search).has('demo');
+        const KEY = 'panelBodaClave';
+
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const store = {
+            get() { try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; } },
+            set(v) { try { sessionStorage.setItem(KEY, v); } catch (e) {} },
+            clear() { try { sessionStorage.removeItem(KEY); } catch (e) {} }
+        };
+
+        let clave = '';
+        let guests = [];
+        let filtro = 'todos';
+
+        // Columnas de la hoja: Fecha, Asistencia, Nombre, Acompanante,
+        // Nombre_Acompanante, Autobus, AutobusSentido, Parada, ParadaHora,
+        // Alergenos, Cancion, Mensaje
+        function toGuest(f) {
+            const t = v => String(v == null ? '' : v).trim();
+            const asiste = t(f[1]).toLowerCase() === 'si';
+            const conAcomp = asiste && (t(f[3]).toLowerCase() === 'si' || t(f[4]) !== '');
+            return {
+                fecha: f[0] ? new Date(f[0]) : null,
+                asiste, conAcomp,
+                nombre: t(f[2]) || 'Sin nombre',
+                acomp: t(f[4]),
+                bus: t(f[5]),
+                alergias: t(f[9]),
+                cancion: t(f[10]),
+                mensaje: t(f[11]),
+                personas: asiste ? (conAcomp ? 2 : 1) : 0
+            };
+        }
+
+        const demoRows = () => [
+            ['2026-11-18T21:11:00', 'si', 'Marta Ruiz Solana', 'si', 'Íñigo Pardo', 'Ida y vuelta - Sanvi', '', '', '', 'Celíaca', 'La Bicicleta — Carlos Vives', '¡Qué ganas de veros!'],
+            ['2026-11-19T10:02:00', 'si', 'Pablo Gutiérrez', 'no', '', 'Solo ida', '', '', '', '', 'Sarandonga — Lolita', ''],
+            ['2026-11-19T13:40:00', 'no', 'Lucía Cobo', 'no', '', 'No necesito autobús', '', '', '', '', '', 'Nos pilla de viaje, un abrazo enorme.'],
+            ['2026-11-20T08:15:00', 'si', 'Andrés Sainz', 'si', 'Carmen Vega', 'Ida y vuelta - Cabezón', '', '', '', 'Alergia a los frutos secos (Carmen)', '', ''],
+            ['2026-11-20T19:33:00', 'si', 'Elena Portilla', 'no', '', 'Ida y vuelta - Trasvía', '', '', '', '', 'Mi Gran Noche — Raphael', 'Sois los mejores.'],
+            ['2026-11-21T12:05:00', 'si', 'Javier Noriega', 'si', 'Sara Lombó', 'No necesito autobús', '', '', '', 'Vegetariana (Sara)', '', '']
+        ];
+
+        async function cargar() {
+            if (DEMO) return { ok: true, filas: demoRows(), hoja: '' };
+            const body = new FormData();
+            body.append('accion', 'panel');
+            body.append('clave', clave);
+            const r = await fetch(scriptURL, { method: 'POST', body });
+            return r.json();
+        }
+
+        const fmtFecha = d => d && !isNaN(d) ? d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : '';
+
+        function pintarTotales() {
+            const si = guests.filter(g => g.asiste);
+            $('sPersonas').textContent = si.reduce((n, g) => n + g.personas, 0);
+            $('sSi').textContent = si.length;
+            $('sAcomp').textContent = si.filter(g => g.conAcomp).length + ' con acompañante';
+            $('sNo').textContent = guests.length - si.length;
+            $('sTotal').textContent = guests.length;
+
+            // Cada autobús es un desplegable con los nombres de quien va en él.
+            const abiertos = new Set([...document.querySelectorAll('.bus[open]')].map(d => d.dataset.bus));
+            const buses = new Map();
+            si.forEach(g => {
+                if (!g.bus || /^no/i.test(g.bus)) return;
+                if (!buses.has(g.bus)) buses.set(g.bus, []);
+                const lista = buses.get(g.bus);
+                lista.push({ nombre: g.nombre, nota: '' });
+                if (g.conAcomp) lista.push({ nombre: g.acomp || 'Acompañante sin nombre', nota: 'con ' + g.nombre });
+            });
+            const orden = [...buses.entries()].sort((a, b) => a[0].localeCompare(b[0], 'es'));
+            $('busGrid').innerHTML = orden.length
+                ? orden.map(([nombre, gente]) => {
+                    const p = nombre.split(' - ');
+                    gente.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+                    return `<details class="bus" data-bus="${esc(nombre)}"${abiertos.has(nombre) ? ' open' : ''}>
+                        <summary><span class="name">${esc(p[1] || p[0])}${p[1] ? `<small>${esc(p[0])}</small>` : ''}</span><span class="seats">${gente.length}</span><span class="chev" aria-hidden="true"></span></summary>
+                        <ol>${gente.map(x => `<li>${esc(x.nombre)}${x.nota ? `<small>${esc(x.nota)}</small>` : ''}</li>`).join('')}</ol>
+                    </details>`;
+                }).join('')
+                : '<p class="empty" style="grid-column:1/-1">Nadie ha pedido autobús todavía.</p>';
+            $('busAll').hidden = !orden.length;
+        }
+
+        function pintarLista() {
+            const q = $('search').value.trim().toLowerCase();
+            const vis = guests.filter(g =>
+                (filtro === 'todos' || (filtro === 'si') === g.asiste) &&
+                (!q || (g.nombre + ' ' + g.acomp).toLowerCase().includes(q)));
+            $('rows').innerHTML = vis.map(g => `
+                <tr>
+                    <td class="name">${esc(g.nombre)}</td>
+                    <td class="state"><span class="pill ${g.asiste ? 'si' : 'no'}">${g.asiste ? 'Viene' : 'No viene'}</span></td>
+                    <td data-l="Acompañante">${g.conAcomp ? esc(g.acomp || 'Sí (sin nombre)') : ''}</td>
+                    <td data-l="Autobús">${g.asiste && g.bus && !/^no/i.test(g.bus) ? esc(g.bus) : ''}</td>
+                    <td data-l="Alergias">${esc(g.alergias)}</td>
+                    <td class="date" data-l="Fecha">${esc(fmtFecha(g.fecha))}</td>
+                </tr>`).join('');
+            $('rowsEmpty').hidden = vis.length > 0;
+            $('rowsEmpty').textContent = guests.length ? 'No hay nadie que coincida.' : 'Todavía no ha llegado ninguna confirmación.';
+            $('listCount').textContent = vis.length + ' de ' + guests.length;
+        }
+
+        function pintarTextos() {
+            const lista = (campo, idLista, idCuenta, vacio) => {
+                const con = guests.filter(g => g[campo]);
+                $(idLista).innerHTML = con.length
+                    ? con.map(g => `<li>${esc(g[campo])}<span class="who">${esc(g.nombre)}</span></li>`).join('')
+                    : `<li class="empty">${vacio}</li>`;
+                $(idCuenta).textContent = con.length || '';
+            };
+            lista('alergias', 'alList', 'alCount', 'Nadie ha indicado alergias.');
+            lista('cancion', 'caList', 'caCount', 'Aún no hay canciones.');
+            lista('mensaje', 'meList', 'meCount', 'Aún no hay mensajes.');
+        }
+
+        function pintar(datos) {
+            guests = (datos.filas || []).map(toGuest).sort((a, b) => (b.fecha || 0) - (a.fecha || 0));
+            pintarTotales(); pintarLista(); pintarTextos();
+            $('updated').textContent = 'Actualizado a las ' + new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            if (datos.hoja) { $('sheetLink').href = datos.hoja; $('sheetLink').hidden = false; }
+            $('demoFlag').hidden = !DEMO;
+            $('login').hidden = true;
+            $('panel').hidden = false;
+        }
+
+        async function entrar() {
+            const btn = $('loginBtn');
+            btn.disabled = true; btn.textContent = 'Entrando…';
+            $('loginError').textContent = '';
+            try {
+                const datos = await cargar();
+                if (!datos.ok) throw new Error('clave');
+                store.set(clave);
+                pintar(datos);
+            } catch (e) {
+                store.clear();
+                $('loginError').textContent = e.message === 'clave'
+                    ? 'Contraseña incorrecta.'
+                    : 'No se pudo conectar. Inténtalo de nuevo en un momento.';
+                $('login').hidden = false; $('panel').hidden = true;
+            }
+            btn.disabled = false; btn.textContent = 'Entrar';
+        }
+
+        $('loginForm').addEventListener('submit', e => {
+            e.preventDefault();
+            clave = $('clave').value;
+            entrar();
+        });
+        $('refreshBtn').addEventListener('click', async () => {
+            const b = $('refreshBtn');
+            b.disabled = true; b.textContent = 'Actualizando…';
+            try { const d = await cargar(); if (d.ok) pintar(d); else throw 0; }
+            catch (e) { $('updated').textContent = 'No se pudo actualizar. Inténtalo de nuevo.'; }
+            b.disabled = false; b.textContent = 'Actualizar';
+        });
+        $('logoutBtn').addEventListener('click', () => {
+            store.clear(); clave = ''; guests = [];
+            $('clave').value = '';
+            $('panel').hidden = true; $('login').hidden = false;
+        });
+        $('busAll').addEventListener('click', () => {
+            const todos = [...document.querySelectorAll('.bus')];
+            const abrir = todos.some(d => !d.open);
+            todos.forEach(d => { d.open = abrir; });
+            $('busAll').textContent = abrir ? 'Plegar todos' : 'Desplegar todos';
+        });
+        $('search').addEventListener('input', pintarLista);
+        document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+            filtro = c.dataset.f;
+            document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === c));
+            pintarLista();
+        }));
+
+        // Arranque: vista de ejemplo, o sesión ya abierta en esta pestaña.
+        if (DEMO) { cargar().then(pintar); }
+        else if ((clave = store.get())) { entrar(); }
+    </script>
+</body>
+</html>
