@@ -891,14 +891,14 @@
                         <svg viewBox="0 0 64 64" aria-hidden="true"><line x1="32" y1="6" x2="32" y2="18"/><circle cx="32" cy="34" r="16"/><ellipse cx="32" cy="34" rx="7" ry="16"/><line x1="16" y1="34" x2="48" y2="34"/><path d="M18 26h28M18 42h28"/><line x1="52" y1="12" x2="52" y2="20"/><line x1="48" y1="16" x2="56" y2="16"/></svg>
                     </div>
                     <p class="schedule-label">Fiesta</p>
-                    <p class="schedule-time">19:30h</p>
+                    <p class="schedule-time">19:00h</p>
                 </div>
                 <div class="schedule-item">
                     <div class="schedule-icon">
                         <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14a18 18 0 1 0 12 28 15 15 0 0 1-12-28z"/><line x1="48" y1="14" x2="48" y2="20"/><line x1="45" y1="17" x2="51" y2="17"/><line x1="54" y1="26" x2="54" y2="30"/><line x1="52" y1="28" x2="56" y2="28"/></svg>
                     </div>
                     <p class="schedule-label">Fin</p>
-                    <p class="schedule-time">00:00h</p>
+                    <p class="schedule-time">01:00h</p>
                 </div>
             </div>
         </div>
@@ -1083,7 +1083,7 @@
             // 2027) para que la cuenta atrás sea correcta sin importar la
             // zona horaria de quien vea la web.
             weddingISO: "2027-03-13T12:30:00+01:00",
-            partyEndISO: "2027-03-14T00:00:00+01:00",
+            partyEndISO: "2027-03-14T01:00:00+01:00",
             heroDate: "Cantabria · 13 de marzo de 2027",
             closingDate: "13 de marzo de 2027 · Cantabria",
             // [REVISAR] Ajustada a antes del 13 de marzo al cambiar la fecha de la boda — confirmar con la pareja.
@@ -1119,9 +1119,9 @@
         // Las tres líneas salen juntas desde San Vicente (ida única) y
         // regresan cada una a su localidad. Las usa también el formulario.
         const busRoutes = [
-            { id: "linea-1", number: "Línea 1", formLabel: "Sanvi", name: "Línea 1 · Regreso a San Vicente de la Barquera", returnTo: "San Vicente de la Barquera", returnTime: "00:00", stops: [] },
-            { id: "linea-2", number: "Línea 2", formLabel: "Trasvía", name: "Línea 2 · Regreso a Trasvía", returnTo: "Trasvía", returnTime: "00:00", stops: [] },
-            { id: "linea-3", number: "Línea 3", formLabel: "Cabezón", name: "Línea 3 · Regreso a Cabezón de la Sal", returnTo: "Cabezón de la Sal", returnTime: "00:00", stops: [] }
+            { id: "linea-1", number: "Línea 1", formLabel: "Sanvi", name: "Línea 1 · Regreso a San Vicente de la Barquera", returnTo: "San Vicente de la Barquera", returnTime: "01:00", stops: [] },
+            { id: "linea-2", number: "Línea 2", formLabel: "Trasvía", name: "Línea 2 · Regreso a Trasvía", returnTo: "Trasvía", returnTime: "01:00", stops: [] },
+            { id: "linea-3", number: "Línea 3", formLabel: "Cabezón", name: "Línea 3 · Regreso a Cabezón de la Sal", returnTo: "Cabezón de la Sal", returnTime: "01:00", stops: [] }
         ];
 
         function renderBusRoutes() {
